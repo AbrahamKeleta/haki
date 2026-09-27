@@ -1,0 +1,4 @@
+/* Registered CSS is applied before the page DOM renders, including cold worker starts. */
+html:not([data-haki-ready]) { background: #040b13 !important; overflow: hidden !important; }
+html:not([data-haki-ready]) body { display: none !important; }
+html[data-haki-blocked] { overflow: hidden !important; overscroll-behavior: none !important; }
