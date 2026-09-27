@@ -1,0 +1,8 @@
+.DS_Store
+.claude/
+.codex/
+.agents/
+node_modules/
+dist/
+test-results/
+*.log
