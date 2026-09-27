@@ -15,7 +15,7 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 - `scripting` registers persistent content scripts at `document_start`; CSS blocks the initial page before asynchronous storage reads. A native modal dialog in Shadow DOM supplies a top-layer barrier and focus isolation. Emergency access remains available if loading fails.
 - Storage writes are serialized in the service worker. Settings updates write individual top-level fields so confirmations cannot overwrite edits.
 - Tab mode is document scoped. Interval and daily confirmation are global. An already displayed gate still requires its own intentional confirmation.
-- No design reference image was attached. Use charcoal, warm ivory and restrained gold with system typography.
+- Supplied reference: near-black navy, electric blue, cyan outlines, cool white and a subtle chart grid. Use system typography and restrained glow.
 - HTTPS only; exact host matching; no implicit subdomain coverage, local/private hosts or IP literals.
 - Existing pages are notified when settings change. New document loads receive the early blocker. Enabling a new site may require a reload for first-paint protection.
 
