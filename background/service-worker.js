@@ -82,7 +82,10 @@ async function handle(message, sender) {
       if (message.enabled && state.onboardingComplete) validateRules(state.rules);
       return apply({ enabled: message.enabled === true });
     case 'SET_PLATFORM': {
-      const platforms = validatePlatforms(message.platforms);
+      const existing = state.platforms.some(p => p.hostname === message.platform?.hostname);
+      const platforms = validatePlatforms(existing
+        ? state.platforms.map(p => p.hostname === message.platform.hostname ? message.platform : p)
+        : [...state.platforms, message.platform]);
       for (const platform of platforms.filter(p => p.enabled)) {
         if (!await chrome.permissions.contains({ origins: [originPattern(platform.hostname)] })) {
           throw new Error(`Haki needs website access to protect ${platform.name}. Enable it again to grant permission.`);

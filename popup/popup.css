@@ -1,0 +1,29 @@
+body { width: 360px; min-height: 490px; background: radial-gradient(ellipse at 90% 0, #07335b55, transparent 55%), var(--haki-bg); }
+header { padding: 26px 24px 22px; display: flex; justify-content: space-between; align-items: center; }
+.brand { font-size: 17px; gap: 8px; }
+.brand img { width: 25px; height: 25px; }
+.edition { color: #8099b3; font-size: 7px; letter-spacing: .08em; max-width: 72px; line-height: 1.8; text-align: right; }
+main { padding: 0 24px; }
+.protection { display: flex; justify-content: space-between; align-items: center; border: 1px solid #1a3b55; background: #0a1c2f; border-radius: 11px; padding: 15px; }
+.label { font-size: 13px; font-weight: 550; }
+.protection p { color: #91abc4; font-size: 10px; margin: 3px 0 0; }
+#toggle { border: 1px solid #246050; background: #0b3028; color: #90dfc8; font: 650 10px/1.6 inherit; border-radius: 16px; padding: 4px 10px; }
+#toggle[aria-checked=false] { color: #d6b88e; border-color: #645136; background: #2b2216; }
+.stats { display: grid; grid-template-columns: 1fr 1.2fr; margin: 24px 0 18px; }
+.stats div { display: grid; gap: 5px; }
+.stats div + div { border-left: 1px solid var(--haki-border); padding-left: 25px; }
+.stats strong { font-size: 29px; font-weight: 400; line-height: 1.1; }
+.stats span { color: #89a3bd; font-size: 8px; letter-spacing: .1em; }
+nav { border-top: 1px solid var(--haki-border); padding: 9px 0 18px; }
+nav a { display: flex; align-items: center; justify-content: space-between; color: #d8e5f3; padding: 11px 0; font-size: 12px; }
+nav a > span:last-child { color: #6688a6; }
+nav a:hover { color: #51c8ff; text-decoration: none; }
+nav small { display: block; color: #8da6bf; font-size: 10px; margin-top: 4px; }
+#show-now { text-align: left; font-size: 10px; display: flex; justify-content: space-between; }
+.status { font-size: 11px; margin: 10px 0 0; min-height: 16px; }
+footer { padding: 5px 24px 14px; display: flex; justify-content: space-between; align-items: center; }
+footer a, footer .text-button { font-size: 10px; color: #91a9c1; padding: 8px 0; letter-spacing: 0; font-weight: 400; }
+.tagline { border-top: 1px solid #11283c; padding: 15px 24px; color: #7794ae; font-size: 8px; letter-spacing: .2em; margin: 0; text-align: center; }
+.hint { font-size: 10px; }
+.hold { font-size: 10px; letter-spacing: 0; }
+dialog { padding: 22px; }

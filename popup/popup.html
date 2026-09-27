@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Haki</title><link rel="stylesheet" href="../shared/theme.css"><link rel="stylesheet" href="popup.css"><script type="module" src="popup.js"></script></head>
+<body>
+  <header><span class="brand"><img src="../assets/icon32.png" alt="">HAKI</span><span class="edition">YOUR PRE-TRADE RITUAL</span></header>
+  <main>
+    <div class="protection"><div><span class="label">Protection</span><p id="protection-copy">Loading your settings…</p></div><button id="toggle" type="button" role="switch" aria-checked="false" aria-label="Protection enabled" disabled><span id="indicator">…</span></button></div>
+    <div class="stats"><div><strong id="rule-count">—</strong><span>YOUR RULES</span></div><div><strong id="platform-count">—</strong><span>PROTECTED PLATFORMS</span></div></div>
+    <nav aria-label="Haki settings"><a href="../options/options.html#rules" target="_blank">Edit rules <span>↗</span></a><a href="../options/options.html#platforms" target="_blank">Protected platforms <span>↗</span></a><a href="../options/options.html#frequency" target="_blank"><span>Prompt frequency<small id="frequency-label">Every new trading tab</small></span><span>↗</span></a></nav>
+    <button id="show-now" class="primary full" type="button">SHOW HAKI NOW <span>→</span></button>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <div id="emergency-area" hidden><p class="hint">Hold continuously. Access applies to this page only.</p><button id="hold" class="secondary hold full" type="button">Hold 5 seconds to bypass Haki</button></div>
+  </main>
+  <footer><button id="emergency-toggle" class="text-button" type="button" aria-expanded="false">Emergency Access</button><a href="../options/options.html#settings" target="_blank">Settings ↗</a></footer>
+  <p class="tagline">WILLPOWER BEFORE EXECUTION.</p>
+  <dialog id="pause-dialog" aria-labelledby="pause-title"><h2 id="pause-title">Pause Haki?</h2><p class="muted">Your trading platforms will no longer show your rules.</p><div class="dialog-actions"><button id="cancel-pause" class="secondary" type="button">CANCEL</button><button id="confirm-pause" class="primary" type="button">PAUSE</button></div></dialog>
+</body></html>
