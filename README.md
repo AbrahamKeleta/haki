@@ -73,6 +73,7 @@ npm test                 # Core, storage and worker regression tests
 npm run check           # Manifest, syntax, assets and CSP checks
 npm run assets          # Regenerate checked-in gate CSS bundle and PNG icons
 npm run site:platforms  # Sync the landing-page carousel with the built-in catalog
+npm run store:assets   # Capture five store screenshots and render both promo tiles
 node tests/browser.test.mjs  # Isolated real Chrome integration, no brokerage connection
 npm run package         # Reproducible runtime-only ZIP and SHA-256
 node tests/site.test.mjs # Desktop/mobile landing page and actual download verification

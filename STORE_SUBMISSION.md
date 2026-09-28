@@ -20,11 +20,11 @@ Before submitting, add the actual publisher/support contact and hosting-specific
 | Asset | Requirement | Haki status |
 | --- | --- | --- |
 | Extension icon | 128 × 128 PNG in the package | `assets/icon128.png` exists; check its presentation against Google's square-icon guidance: 96 × 96 artwork with 16 px transparent padding |
-| Small promotional image | 440 × 280 | Still to create; use Haki's navy/electric-blue identity |
-| Screenshots | 1–5, 1280 × 800 preferred or 640 × 400; full bleed, square corners | Local captures exist in `test-results/`, but must be recaptured at store dimensions |
-| Marquee image | 1400 × 560, optional | Not needed for the first submission |
+| Small promotional image | 440 × 280 | Ready: `store-assets/small-promo-440x280.png` |
+| Screenshots | 1–5, 1280 × 800 preferred or 640 × 400; full bleed, square corners | Ready: five 1280 × 800 PNGs, numbered `01`–`05` in `store-assets/` |
+| Marquee image | 1400 × 560, optional | Ready: `store-assets/marquee-promo-1400x560.png` |
 
-These sizes and required assets come from [Google's image guide](https://developer.chrome.com/docs/webstore/images). Suggested screenshots: the actual gate, the new-tab page, and settings. Use example rules, with no account or trading data visible. Capture the current release; older ad-preview screenshots in local test output are obsolete.
+These sizes and required assets come from [Google's image guide](https://developer.chrome.com/docs/webstore/images). The completed images show the actual gate, new-tab page, rule editor, platform settings and frequency settings with sample rules. Use the upload order in [store-assets/README.md](store-assets/README.md). Older ad-preview screenshots in local test output are obsolete.
 
 ## 4. Validate and upload the extension ZIP
 
@@ -42,7 +42,7 @@ In the dashboard choose **New item** and upload **`dist/haki-1.0.0.zip`**. It co
 
 ## 5. Fill in the listing and reviewer information
 
-- **Store listing:** Use the name, short description and full description in [STORE_LISTING.md](STORE_LISTING.md). Choose the closest available productivity category, upload the images, and enter the real website/support details.
+- **Store listing:** Use the name, short description and full description in [STORE_LISTING.md](STORE_LISTING.md). Choose **Workflow & Planning**, upload the prepared images, and enter the real website/support details. [Current category guide](https://developer.chrome.com/docs/webstore/best-practices#choose-your-extensions-category-well)
 - **Privacy practices:** Paste the single-purpose and permission justifications from that file. Remote code is **No**. Haki keeps rules, selected hostnames, preferences and confirmation dates locally; it has no developer-side transmission, analytics or ad network. Answer the live data questionnaire according to its definitions and the policy; do not treat local storage as if no data is handled at all. The broad optional host declaration supports user-added websites, while each actual grant covers only the exact site the user enables. [Privacy guide](https://developer.chrome.com/docs/webstore/cws-dashboard-privacy)
 - **New-tab behavior:** Keep the listing disclosure: Chrome registers an override at installation; the in-app preference starts off and opens Chrome's built-in page until enabled. This submission contains no advertisements, sponsor links or ad-preview controls.
 - **Distribution:** Choose Public for launch, Unlisted for installation by link, or Private for designated testers; choose target regions. All three still require review. Haki currently has no purchase or licensing flow. [Distribution guide](https://developer.chrome.com/docs/webstore/cws-dashboard-distribution)
@@ -62,7 +62,8 @@ Replace the landing page's manual ZIP download buttons with the actual store lis
 
 - [ ] Publisher registration, fee, 2-Step Verification, verified contact and status declaration.
 - [ ] Public website/privacy URL, real support contact and hosting disclosures.
-- [ ] Store-sized screenshots and required promotional image; icon presentation reviewed.
+- [x] Five store-sized screenshots, required small promo image and optional marquee image prepared and visually reviewed.
+- [ ] Icon presentation reviewed against Google's padding guidance.
 - [ ] Manual release checks from TESTING.md.
 - [ ] Dashboard listing, privacy declarations, distribution and reviewer notes entered.
 - [ ] ZIP uploaded and review requested by the publisher.

@@ -14,6 +14,8 @@ September 27, 2026. Local macOS testing; isolated headless browser profiles with
 
 Chrome/Brave browser results and screenshots are under `test-results/` and `test-results/brave/` (generated, not committed). Desktop landing page was tested at 1440 px and mobile at 390 px. The new-tab page was also tested at 390 px with no horizontal overflow.
 
+The separate `npm run store:assets` capture produced five real extension screenshots at 1280 × 800 and promo tiles at 440 × 280 and 1400 × 560, with no uncaught Chrome errors. All seven PNG dimensions were validated and their images visually reviewed. Upload files and source artwork are committed in `store-assets/`; no runtime files changed for their creation.
+
 ## Coverage
 
 - Installation opens onboarding; setup requires valid rules and at least one permitted website. Updates do not reopen completed onboarding.

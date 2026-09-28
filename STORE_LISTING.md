@@ -4,30 +4,30 @@
 
 **Short description:** Your trading rules before your emotions.
 
-**Category suggestion:** Productivity
+**Category recommendation:** Workflow & Planning — Haki supports focus and a repeatable checklist routine. [Google's category guide](https://developer.chrome.com/docs/webstore/best-practices#choose-your-extensions-category-well)
 
 ## Description
 
+Haki puts your own trading rules in front of you before you enter your chosen trading websites.
+
+Build a calmer routine: read your rules, check each one, and continue when you are ready. Every new gate starts with a fresh checklist.
+
+MAKE IT YOUR PROCESS
+• Create, edit and reorder up to 20 personal rules.
+• Choose from 28 built-in browser platforms or add your own HTTPS trading websites.
+• See your checklist on every new trading page, every few hours, or once per local calendar day.
+• Bring your rules into an optional new-tab page, with quick inline editing.
+• Stay in control with pause and intentional emergency access.
+
+PRIVATE AND SIMPLE
+Your rules and preferences stay locally in your browser. No Haki account, advertisements, analytics or backend. Website access is requested only for the individual sites you enable.
+
+NEW-TAB CHOICE
+Haki registers a new-tab replacement. Its in-app setting starts off; when off, Haki opens Chrome's built-in New Tab page. Turn it on to see your rules whenever you open a new tab.
+
 Willpower before execution.
 
-Haki helps traders follow their process by placing their own trading rules in front of them before they enter their trading platforms.
-
-Create your rules, choose your trading websites, and decide how often Haki should remind you. Every rule starts unchecked. Read, check, and continue with intention.
-
-• Write, edit and reorder up to 20 personal trading rules.
-• Choose from 28 built-in browser platforms, including TradingView, Tradovate, TopstepX, Webull and OANDA, or add your own HTTPS trading website.
-• Choose every new trading tab, every few hours, or once per local day.
-• Bring your rules into each new tab with an optional calm reminder page and inline editing.
-• Stay in control with a pause option and intentional emergency access.
-• Keep your rules in your browser, without an account or backend.
-
-No signals. No strategies. No trade recommendations.
-
-Just your rules, before you trade.
-
-Haki is a behavioral productivity tool for traders. It does not provide financial advice, trading signals, investment recommendations, or risk management guarantees. You remain responsible for your trading decisions.
-
-Haki registers a new-tab replacement. Its in-app setting is optional: when off, Haki opens Chrome's built-in New Tab page. This release contains no advertisements or sponsored links.
+Haki is a behavioral productivity tool. It does not provide financial advice, trading signals, investment recommendations or risk-management guarantees. You remain responsible for your trading decisions.
 
 ## Permission justifications
 
@@ -43,8 +43,9 @@ Haki registers a new-tab replacement. Its in-app setting is optional: when off, 
 
 - ZIP: `dist/haki-1.0.0.zip`, generated with `npm run package`.
 - Icon: `assets/icon128.png`; review its padding against the store's icon guidance.
-- Required promotional image: 440 × 280, still to create. Optional marquee: 1400 × 560.
-- Required screenshots: 1–5 at 1280 × 800 or 640 × 400. Existing captures in `test-results/` must be recaptured at these dimensions. Suggested views: gate, clean new tab, settings. [Official image requirements](https://developer.chrome.com/docs/webstore/images)
+- Ready: [small promo tile](store-assets/small-promo-440x280.png), 440 × 280; [marquee promo tile](store-assets/marquee-promo-1400x560.png), 1400 × 560.
+- Ready: five actual extension screenshots at 1280 × 800. Upload files `01`–`05` in order from [store-assets/](store-assets/README.md). Native PNG dimensions were verified and all images visually reviewed. [Official image requirements](https://developer.chrome.com/docs/webstore/images)
+- Plain-text product description: [store-assets/description.txt](store-assets/description.txt).
 - Publish `website/privacy.html` at a stable HTTPS URL, keep it consistent with PRIVACY.md, and supply actual developer contact/support and hosting information.
 - Follow [STORE_SUBMISSION.md](STORE_SUBMISSION.md) for the verified account-to-publication checklist. No upload, account purchase or publication has been performed.
 - Authenticated-platform smoke tests and assistive-technology review remain release checks; see TESTING.md.
