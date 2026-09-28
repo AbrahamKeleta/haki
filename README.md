@@ -19,7 +19,7 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 ## What is included
 
 - First-run onboarding, 1–20 editable/reorderable rules (up to 200 characters each).
-- Verified built-ins: Tradovate, TopstepX and TradeSea. HTTPS custom websites with exact hostname matching.
+- Verified built-ins: Tradovate, TopstepX, TradeSea and TradingView (`www.tradingview.com`). HTTPS custom websites with exact hostname matching.
 - An early blocking layer, isolated accessible checklist, live progress and a quiet success transition.
 - Every new/reloaded trading page, every 1/2/3/4/6/8/12 hours, or once per local calendar day.
 - Compact popup with protection status, rule/platform counts, management links, **Show Haki Now**, pause confirmation and five-second emergency access.

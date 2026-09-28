@@ -11,6 +11,7 @@ export const BUILT_IN_PLATFORMS = [
   { id: 'tradovate', name: 'Tradovate', hostname: 'trader.tradovate.com', builtIn: true },
   { id: 'topstepx', name: 'TopstepX', hostname: 'topstepx.com', builtIn: true },
   { id: 'tradesea', name: 'TradeSea', hostname: 'app.tradesea.ai', builtIn: true },
+  { id: 'tradingview', name: 'TradingView', hostname: 'www.tradingview.com', builtIn: true },
 ];
 
 export const EXAMPLE_RULES = [

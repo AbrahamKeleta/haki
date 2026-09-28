@@ -30,6 +30,9 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 | Tradovate | `trader.tradovate.com` | https://www.tradovate.com/devices/ |
 | TopstepX | `topstepx.com` | https://help.topstep.com/en/articles/14434175-topstepx |
 | TradeSea | `app.tradesea.ai` | https://help.tradesea.ai/en/articles/13669445-what-is-tradesea |
+| TradingView | `www.tradingview.com` | https://www.tradingview.com/chart/ |
+
+TradingView is available to both new and existing installations through the centralized platform normalizer. It starts disabled until the user grants site access. An existing custom entry for the same hostname is upgraded to the built-in definition without changing its enabled state. Localized TradingView subdomains remain individually addable custom hosts.
 
 Browser API references: https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts and https://developer.chrome.com/docs/extensions/reference/api/scripting.
 

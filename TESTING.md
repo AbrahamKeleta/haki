@@ -6,10 +6,10 @@ September 27, 2026. Local macOS testing; isolated headless browser profiles with
 
 | Check | Result |
 | --- | --- |
-| `npm test` | 23 core and service-worker tests passed |
+| `npm test` | 25 core and service-worker tests passed |
 | `npm run check` | Manifest, 14 runtime JS files, HTML/CSP, icons and generated stylesheet passed |
-| `node tests/browser.test.mjs` | 20 integration checks passed in Google Chrome 153.0.8010.49, no uncaught extension/fixture errors |
-| Same browser suite with `HAKI_BROWSER` pointing at Brave | 20 checks passed in Brave's Chromium 149.0.7827.115, no uncaught extension/fixture errors |
+| `node tests/browser.test.mjs` | 21 integration checks passed in Google Chrome 153.0.8010.49, including TradingView, no uncaught extension/fixture errors |
+| Previous browser suite with `HAKI_BROWSER` pointing at Brave | 20 checks passed in Brave's Chromium 149.0.7827.115 before adding TradingView, no uncaught extension/fixture errors; the new TradingView check was run in Chrome |
 | `node tests/site.test.mjs` | Landing page links, exact ZIP download, desktop/mobile layout, address-copy control, reduced motion, privacy page and absence of third-party resources passed |
 
 Chrome/Brave browser results and screenshots are under `test-results/` and `test-results/brave/` (generated, not committed). Desktop landing page was tested at 1440 px and mobile at 390 px. The new-tab page was also tested at 390 px with no horizontal overflow.
@@ -18,6 +18,7 @@ Chrome/Brave browser results and screenshots are under `test-results/` and `test
 
 - Installation opens onboarding; setup requires valid rules and at least one permitted website. Updates do not reopen completed onboarding.
 - Exact HTTPS hostname normalization; malformed URLs, IPs, private suffixes and impersonating domains are rejected. Permission denial is checked at the worker boundary and by simulating a denied request in the real UI. The real browser grant path is also exercised. Removal releases custom-site permissions; startup/revocation reconciles missing grants.
+- TradingView is available in new and existing installations without changing existing rules or enabled sites. A previously custom `www.tradingview.com` entry becomes built-in without duplication and retains its enabled preference. Chrome verifies exact-host registration and the unchecked gate after access is granted.
 - Rule trimming, zero/blank/overlong/21-rule rejection, unique identifiers, ordering, one rule and twenty long rules. Inline new-tab edits propagate to stored trading rules.
 - Persistent document-start registration; initial body hidden or modal already present when the fixture's first inline script runs. Full-viewport modal survives aggressive host CSS.
 - Unchecked initial checklist, disabled ready button, all-rules confirmation, success/dismissal, restored pointer/keyboard interaction.

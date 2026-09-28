@@ -15,7 +15,7 @@ Haki helps traders follow their process by placing their own trading rules in fr
 Create your rules, choose your trading websites, and decide how often Haki should remind you. Every rule starts unchecked. Read, check, and continue with intention.
 
 • Write, edit and reorder up to 20 personal trading rules.
-• Protect Tradovate, TopstepX, TradeSea, or your own HTTPS trading website.
+• Protect Tradovate, TopstepX, TradeSea, TradingView, or your own HTTPS trading website.
 • Choose every new trading tab, every few hours, or once per local day.
 • Bring your rules into each new tab with an optional calm reminder page and inline editing.
 • Stay in control with a pause option and intentional emergency access.

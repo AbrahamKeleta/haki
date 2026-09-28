@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { launch, until, pause } from './browser-driver.mjs';
+import { BUILT_IN_PLATFORMS } from '../shared/constants.js';
 
 const results = [], errors = [];
 let run, extensionId, ui, worker;
@@ -70,7 +71,7 @@ try {
     await until(() => ui.evaluate('document.querySelectorAll(".edit-row").length === 4'));
     await ui.evaluate(`document.querySelector('.edit-row input').value='Only trade my setup'; document.querySelector('.edit-row input').dispatchEvent(new Event('input',{bubbles:true}))`);
     await click(ui, dom('#next'));
-    await until(() => ui.evaluate('document.querySelectorAll(".platform-row").length === 3'));
+    await until(() => ui.evaluate(`document.querySelectorAll('.platform-row').length === ${BUILT_IN_PLATFORMS.length}`));
     await click(ui, dom('#next'));
     assert.match(await ui.evaluate('document.querySelector("#status").textContent'), /at least one/);
     await grant('trader.tradovate.com');
@@ -232,6 +233,17 @@ try {
     assert.equal(await ui.evaluate('chrome.permissions.contains({origins:["https://example.com/*"]})'), true);
     await message('REMOVE_PLATFORM', { id: 'custom-example.com' });
     assert.equal(await ui.evaluate('chrome.permissions.contains({origins:["https://example.com/*"]})'), false);
+  });
+  await check('TradingView is built-in and gates its exact permitted hostname', async () => {
+    const platform = (await message('GET_STATE')).state.platforms.find(p => p.id === 'tradingview');
+    assert.equal(platform.builtIn, true); assert.equal(platform.enabled, false);
+    await grant('www.tradingview.com');
+    await message('SET_PLATFORM', { platform: { ...platform, enabled: true } });
+    const registrations = await ui.evaluate('chrome.scripting.getRegisteredContentScripts()');
+    assert.ok(registrations[0].matches.includes('https://www.tradingview.com/*'));
+    const page = await configuredPage('www.tradingview.com'); await waitGate(page);
+    assert.equal(await page.evaluate(`${gate}.querySelectorAll('[aria-checked=true]').length`), 0);
+    await finishGate(page);
   });
   await check('manual injection into an existing page locks scrolling and recovers removed hosts', async () => {
     const page = await configuredPage('app.tradesea.ai');

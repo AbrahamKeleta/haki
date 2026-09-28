@@ -49,6 +49,26 @@ test('platform validation canonicalizes built-ins and rejects duplicates', () =>
   assert.throws(() => validatePlatforms([{ hostname: 'example.com' }, { hostname: 'example.com' }]));
   assert.equal(validatePlatforms([{ hostname: 'example.com', enabled: true }])[0].builtIn, false);
 });
+test('existing installations gain TradingView without changing rules or enabled sites', () => {
+  const previous = defaultState();
+  previous.rules = [{ id: 'keep', text: 'My existing rule', order: 0 }];
+  previous.platforms = previous.platforms.filter(p => p.id !== 'tradingview');
+  previous.platforms[0].enabled = true;
+  const next = normalizeState(previous);
+  assert.deepEqual(next.rules, previous.rules);
+  assert.equal(next.platforms[0].enabled, true);
+  assert.deepEqual(next.platforms.find(p => p.id === 'tradingview'), {
+    id: 'tradingview', name: 'TradingView', hostname: 'www.tradingview.com', builtIn: true, enabled: false,
+  });
+});
+test('an existing custom TradingView entry becomes built-in and keeps its permission preference', () => {
+  const platforms = validatePlatforms([{ id: 'custom-www.tradingview.com', hostname: 'www.tradingview.com', builtIn: false, enabled: true }]);
+  const platform = platforms.find(p => p.id === 'tradingview');
+  assert.equal(platform.builtIn, true); assert.equal(platform.enabled, true);
+  assert.equal(platforms.filter(p => p.hostname === 'www.tradingview.com').length, 1);
+  assert.ok(protectedPlatform(platforms, 'https://www.tradingview.com/chart/'));
+  assert.equal(protectedPlatform(platforms, 'https://www.tradingview.com.evil.com/chart/'), null);
+});
 test('corrupt settings return repair state while preserving usable text', () => {
   const state = normalizeState({ ...defaultState(), onboardingComplete: true, rules: [{ text: 'Keep this' }, { text: '' }] });
   assert.equal(state.rules[0].text, 'Keep this');
