@@ -8,6 +8,7 @@
     "check": "node scripts/check.mjs",
     "assets": "node scripts/build-assets.mjs",
     "preview:newtab": "node scripts/preview-newtab.mjs",
+    "store:assets": "node scripts/store-assets.mjs",
     "site:platforms": "node scripts/site-platforms.mjs --write",
     "package": "node scripts/site-platforms.mjs --write && python3 scripts/package.py"
   }

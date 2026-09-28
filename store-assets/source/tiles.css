@@ -1,0 +1,45 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; }
+body { position: relative; overflow: hidden; background: #040b13; color: #eef5ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.grid { position: absolute; inset: 0; background-image: linear-gradient(#16375224 1px, transparent 1px), linear-gradient(90deg, #16375224 1px, transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(110deg, transparent, #000); }
+.orbit { position: absolute; border: 1px solid #19507a45; border-radius: 50%; pointer-events: none; }
+main { position: relative; z-index: 2; }
+.brand { display: flex; align-items: center; font-weight: 650; letter-spacing: .32em; }
+.brand img { display: block; flex: none; }
+h1 { margin: 0; font-weight: 500; letter-spacing: -.045em; }
+p { color: #98b0c8; }
+.check { display: grid; place-items: center; flex: none; border: 1px solid #39baff; border-radius: 50%; background: #0b283d; color: #65cdff; }
+.check.empty { border-color: #35566f; background: #081725; }
+.small { width: 440px; height: 280px; background-image: radial-gradient(ellipse at 95% 85%, #064f7838, transparent 65%); }
+.small main { padding: 26px 32px; }
+.small .brand { gap: 8px; margin-left: -7px; font-size: 16px; }
+.small .brand img { width: 34px; height: 34px; }
+.small h1 { margin-top: 17px; font-size: 36px; line-height: 1.12; }
+.small .ritual-line { display: flex; align-items: center; gap: 8px; width: 132px; margin-top: 24px; }
+.small .check { width: 22px; height: 22px; font-size: 12px; }
+.small .line { height: 1px; flex: 1; background: #245574; }
+.small p { position: absolute; left: 190px; bottom: 27px; margin: 0; font-size: 11px; letter-spacing: .015em; }
+.small .orbit-one { width: 370px; height: 370px; left: 218px; top: 51px; }
+.small .orbit-two { width: 460px; height: 460px; left: 172px; top: 6px; }
+.marquee { width: 1400px; height: 560px; background-image: radial-gradient(ellipse at 85% 50%, #07538436, transparent 56%); }
+.marquee main { padding: 43px 82px; }
+.marquee .brand { gap: 12px; margin-left: -8px; font-size: 22px; }
+.marquee .brand img { width: 48px; height: 48px; }
+.marquee h1 { margin-top: 37px; font-size: 76px; line-height: 1.04; }
+.marquee h1 em { font-style: normal; color: #43b8ff; }
+.marquee p { margin: 30px 0 0; font-size: 18px; letter-spacing: .01em; }
+.marquee .orbit-one { width: 950px; height: 950px; left: 655px; top: -195px; }
+.marquee .orbit-two { width: 1120px; height: 1120px; left: 570px; top: -280px; }
+.symbol { position: absolute; width: 470px; height: 470px; right: 125px; top: 45px; }
+.symbol-ring { position: absolute; border: 1px solid #1c4968; border-radius: 50%; }
+.symbol-ring.outer { inset: 6px; border-color: #173a51; }
+.symbol-ring.inner { inset: 52px; border-color: #24648a; box-shadow: 0 0 80px #047ddd0a; }
+.symbol-disc { position: absolute; inset: 113px; background: #061420; border: 1px solid #2a6a93; border-radius: 48px; display: grid; place-items: center; box-shadow: 0 20px 80px #0006, 0 0 60px #189bff0d; transform: rotate(-7deg); }
+.symbol-disc img { width: 210px; height: 210px; transform: rotate(7deg); filter: drop-shadow(0 0 16px #169bff30); }
+.step { position: absolute; display: flex; align-items: center; gap: 15px; padding: 16px 20px; width: 181px; height: 64px; background: #091b29; border: 1px solid #29516c; border-radius: 13px; box-shadow: 0 10px 26px #0004; }
+.step .check { width: 27px; height: 27px; font-size: 15px; }
+.rule-stroke { flex: 1; height: 4px; background: #6192b7; border-radius: 4px; }
+.step-one { top: 45px; right: -35px; transform: rotate(5deg); }
+.step-two { bottom: 57px; left: -55px; transform: rotate(-5deg); }
+.step-three { bottom: 12px; right: -10px; width: 160px; }
+.step-three .rule-stroke { background: #345069; }
