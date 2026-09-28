@@ -1,4 +1,4 @@
-import { MAX_RULES, MAX_RULE_LENGTH, INTERVAL_HOURS } from './constants.js';
+import { MAX_RULES, MAX_RULE_LENGTH, MAX_CUSTOM_PLATFORMS, PLATFORM_CATEGORIES, INTERVAL_HOURS } from './constants.js';
 import { normalizeHostname, originPattern } from './domains.js';
 import { element, request } from './utils.js';
 
@@ -45,14 +45,31 @@ export function ruleEditor(container, initialRules, onChange = () => {}) {
 }
 
 export function platformEditor(container, initialPlatforms, status, onSaved = () => {}) {
-  let platforms = initialPlatforms, pending = false;
-  const list = element('div', { className: 'platforms' });
+  let platforms = initialPlatforms, pending = false, category = 'all';
+  const tools = element('div', { className: 'platform-tools' });
+  const searchLabel = element('label', { className: 'platform-search', for: 'platform-search' }, 'Find your platform');
+  const search = element('input', { id: 'platform-search', type: 'search', placeholder: 'Search by name or website', autocomplete: 'off', spellcheck: 'false', 'aria-controls': 'platform-list' });
+  searchLabel.append(search);
+  const filters = element('div', { className: 'platform-filters', role: 'group', 'aria-label': 'Platform category' });
+  const categories = [{ id: 'all', label: 'All platforms' }, ...PLATFORM_CATEGORIES, { id: 'custom', label: 'Custom' }];
+  for (const item of categories) {
+    const button = element('button', { type: 'button', className: 'platform-filter', 'data-category': item.id, 'aria-pressed': item.id === category, 'aria-controls': 'platform-list' }, item.label);
+    button.addEventListener('click', () => { category = item.id; render(); });
+    filters.append(button);
+  }
+  const summary = element('div', { className: 'platform-summary' });
+  const count = element('span', { role: 'status', 'aria-live': 'polite' });
+  const clear = element('button', { type: 'button', className: 'platform-clear' }, 'Clear filters');
+  clear.addEventListener('click', () => { category = 'all'; search.value = ''; render(); search.focus(); });
+  search.addEventListener('input', () => render());
+  summary.append(count, clear); tools.append(searchLabel, filters, summary);
+  const list = element('div', { id: 'platform-list', className: 'platforms' });
   const form = element('form', { className: 'add-site' });
   const label = element('label', { for: 'custom-host' }, 'Add another trading website');
   const input = element('input', { id: 'custom-host', type: 'text', placeholder: 'app.examplebroker.com', maxlength: 2048, autocomplete: 'off', spellcheck: 'false' });
   const add = element('button', { className: 'secondary', type: 'submit' }, '+ ADD WEBSITE');
   form.append(label, input, add);
-  container.replaceChildren(list, form, element('p', { className: 'hint' }, 'Haki asks for access to each website you enable. HTTPS only. Subdomains are added separately.'));
+  container.replaceChildren(tools, list, form, element('p', { className: 'hint' }, 'Protection covers every page on the exact website shown. Haki asks for access when you enable it. HTTPS only; add other subdomains separately.'));
   const saved = state => { platforms = state.platforms; onSaved(state); render(); };
   async function update(platform, enabled) {
     if (pending) return;
@@ -64,13 +81,21 @@ export function platformEditor(container, initialPlatforms, status, onSaved = ()
       saved(response.state);
       setStatus(status, allowed ? 'Saved. Reload an already open website for protection from its first moment.' : 'Access wasn’t granted. Haki needs website access to display your rules. This website stays disabled.', !allowed);
       return allowed;
-    } catch (error) { setStatus(status, error.message, true); render(); }
+    } catch (error) { setStatus(status, error.message, true); render(); return null; }
     finally { pending = false; }
   }
   function render() {
     const focusedLabel = container.contains(document.activeElement) ? document.activeElement.getAttribute('aria-label') : null;
+    const query = search.value.trim().toLowerCase();
+    const visible = platforms.filter(platform => {
+      const group = platform.builtIn ? platform.category : 'custom';
+      return (category === 'all' || category === group) && `${platform.name} ${platform.hostname}`.toLowerCase().includes(query);
+    });
+    for (const button of filters.children) button.setAttribute('aria-pressed', String(button.dataset.category === category));
+    count.textContent = `${visible.length} of ${platforms.length} shown · ${platforms.filter(p => p.enabled).length} protected`;
+    clear.hidden = category === 'all' && !search.value;
     list.replaceChildren();
-    for (const platform of platforms) {
+    for (const platform of visible) {
       const row = element('div', { className: 'platform-row' });
       const info = element('div', { className: 'platform-info' });
       info.append(element('strong', {}, platform.name), element('small', {}, platform.hostname));
@@ -90,6 +115,7 @@ export function platformEditor(container, initialPlatforms, status, onSaved = ()
       }
       list.append(row);
     }
+    if (!visible.length) list.append(element('p', { className: 'platform-empty' }, 'No matching platforms. Try another search or add your website below.'));
     if (focusedLabel) [...list.querySelectorAll('[aria-label]')].find(el => el.getAttribute('aria-label') === focusedLabel)?.focus();
   }
   form.addEventListener('submit', async event => {
@@ -97,8 +123,10 @@ export function platformEditor(container, initialPlatforms, status, onSaved = ()
     try {
       const hostname = normalizeHostname(input.value);
       if (platforms.some(p => p.hostname === hostname)) throw new Error('That website is already in your list.');
+      if (platforms.filter(p => !p.builtIn).length >= MAX_CUSTOM_PLATFORMS) throw new Error(`Use up to ${MAX_CUSTOM_PLATFORMS} custom websites. Remove one to add another.`);
       add.disabled = true;
-      await update({ hostname, name: hostname, builtIn: false }, true); input.value = '';
+      const added = await update({ hostname, name: hostname, builtIn: false }, true);
+      if (added !== null) { input.value = ''; category = 'custom'; search.value = ''; render(); }
     } catch (error) { setStatus(status, error.message, true); }
     finally { add.disabled = false; }
   });

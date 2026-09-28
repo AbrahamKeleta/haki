@@ -49,11 +49,21 @@ textarea { resize: vertical; min-height: 50px; line-height: 1.5; }
 .icon-button:hover:not(:disabled) { color: var(--haki-text); background: #183047; }
 .editor-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0 20px; }
 .editor-footer small { font-size: 11px; }
-.platforms { display: grid; gap: 10px; }
+.platform-tools { margin-bottom: 12px; }
+.platform-search { display: grid; gap: 8px; color: var(--haki-text-muted); font-size: 12px; }
+.platform-search input { width: 100%; min-width: 0; padding: 12px 14px; color: var(--haki-text); background: #050e18; border: 1px solid var(--haki-border); border-radius: 9px; font: inherit; font-size: 14px; }
+.platform-filters { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.platform-filter { padding: 7px 11px; color: var(--haki-text-muted); background: var(--haki-surface); border: 1px solid var(--haki-border); border-radius: 20px; font-size: 11px; line-height: 1.5; }
+.platform-filter:hover { background: var(--haki-surface-hover); }
+.platform-filter[aria-pressed=true] { color: #bce7ff; background: #0c2b43; border-color: #2982b7; }
+.platform-summary { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 30px; margin-top: 10px; color: #90abc1; font-size: 11px; }
+.platform-clear { padding: 4px 0; border: 0; color: var(--haki-accent-secondary); background: transparent; font-size: 11px; }
+.platforms { display: grid; gap: 10px; max-height: 420px; overflow-y: auto; overscroll-behavior: contain; padding: 5px; margin: 0 -5px; scrollbar-color: #294961 #07131d; scrollbar-width: thin; }
+.platform-empty { margin: 0; padding: 24px 16px; border: 1px dashed var(--haki-border); border-radius: 10px; color: var(--haki-text-muted); text-align: center; font-size: 13px; }
 .platform-row { display: flex; align-items: center; gap: 14px; border: 1px solid var(--haki-border); padding: 17px; border-radius: 12px; background: var(--haki-surface); }
 .platform-avatar { display: grid; place-items: center; width: 39px; height: 39px; background: #10263a; color: #51c8ff; border: 1px solid #23405c; border-radius: 10px; font-size: 16px; font-weight: 650; }
 .platform-info { flex: 1; min-width: 0; }
-.platform-info strong { display: block; font-size: 14px; font-weight: 550; }
+.platform-info strong { display: block; font-size: 14px; font-weight: 550; overflow-wrap: anywhere; }
 .platform-info small { display: block; font-size: 11px; overflow-wrap: anywhere; }
 .switch { position: relative; display: inline-flex; width: 38px; height: 22px; flex: 0 0 38px; }
 .switch input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; margin: 0; }

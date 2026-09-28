@@ -94,6 +94,42 @@ try {
     assert.equal((await message('GET_STATE')).state.platforms.find(p => p.id === 'topstepx').enabled, false);
     await ui.evaluate('chrome.permissions.request=globalThis.realPermissionRequest;location.hash="rules"');
   });
+  await check('platform search and category filters preserve choices, focus and permission behavior', async () => {
+    await ui.evaluate('location.hash="platforms"');
+    const searchFor = async value => ui.evaluate(`document.querySelector('#platform-search').value=${JSON.stringify(value)};document.querySelector('#platform-search').dispatchEvent(new Event('input',{bubbles:true}))`);
+    await searchFor('  WEBULL  ');
+    assert.equal(await ui.evaluate('document.querySelectorAll(".platform-row").length'), 1);
+    await click(ui, dom('[data-category="fx"]'));
+    assert.equal(await ui.evaluate('document.querySelectorAll(".platform-row").length'), 0);
+    assert.match(await ui.evaluate('document.querySelector(".platform-empty").textContent'), /No matching/);
+    await click(ui, dom('.platform-clear'));
+    assert.equal(await ui.evaluate('document.activeElement.id'), 'platform-search');
+    assert.equal(await ui.evaluate('document.querySelectorAll(".platform-row").length'), BUILT_IN_PLATFORMS.length);
+    await click(ui, dom('[data-category="fx"]'));
+    assert.equal(await ui.evaluate('document.querySelectorAll(".platform-row").length'), BUILT_IN_PLATFORMS.filter(p => p.category === 'fx').length);
+    await searchFor('trade.oanda.com'); await grant('trade.oanda.com');
+    await click(ui, dom('[aria-label="Protect OANDA Web"]'));
+    await until(async () => (await message('GET_STATE')).state.platforms.find(p => p.id === 'oanda').enabled);
+    await until(() => ui.evaluate('document.activeElement.getAttribute("aria-label") === "Protect OANDA Web"'));
+    assert.equal(await ui.evaluate('document.querySelector("#platform-search").value'), 'trade.oanda.com');
+    assert.equal(await ui.evaluate('document.querySelector("[data-category=fx]").getAttribute("aria-pressed")'), 'true');
+    await click(ui, dom('[aria-label="Protect OANDA Web"]'));
+    await until(async () => !(await message('GET_STATE')).state.platforms.find(p => p.id === 'oanda').enabled);
+    await click(ui, dom('.platform-clear')); await click(ui, dom('[data-category="custom"]'));
+    await ui.evaluate(`chrome.permissions.request=async()=>false;document.querySelector('#custom-host').value='review-fixture.example.org';document.querySelector('.add-site').requestSubmit()`);
+    await until(() => ui.evaluate(`!!${dom('[aria-label="Remove review-fixture.example.org"]')}`));
+    assert.equal(await ui.evaluate(`${dom('[aria-label="Protect review-fixture.example.org"]')}.checked`), false);
+    await ui.evaluate('chrome.permissions.request=globalThis.realPermissionRequest');
+    await click(ui, dom('[aria-label="Remove review-fixture.example.org"]'));
+    await until(() => ui.evaluate('document.querySelectorAll(".platform-row").length === 0'));
+    await click(ui, dom('.platform-clear'));
+    await run.screenshot(ui, 'platform-catalog');
+    await ui.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
+    assert.equal(await ui.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
+    await run.screenshot(ui, 'platform-catalog-mobile');
+    await ui.send('Emulation.clearDeviceMetricsOverride');
+    await ui.evaluate('location.hash="rules"');
+  });
   let trading;
   await check('first paint is blocked and all rules begin unchecked', async () => {
     trading = await configuredPage(); await waitGate(trading);
@@ -244,6 +280,18 @@ try {
     const page = await configuredPage('www.tradingview.com'); await waitGate(page);
     assert.equal(await page.evaluate(`${gate}.querySelectorAll('[aria-checked=true]').length`), 0);
     await finishGate(page);
+  });
+  await check('all 24 added platform hosts register, block first paint and release after confirmation', async () => {
+    for (const platform of BUILT_IN_PLATFORMS.slice(4)) {
+      await grant(platform.hostname);
+      await message('SET_PLATFORM', { platform: { ...platform, enabled: true } });
+      const page = await configuredPage(platform.hostname); await waitGate(page);
+      assert.ok(await page.evaluate('window.early.hidden || window.early.gate'), platform.hostname);
+      assert.equal(await page.evaluate(`${gate}.querySelectorAll('[aria-checked=true]').length`), 0, platform.hostname);
+      await finishGate(page);
+      await run.browser.send('Target.closeTarget', { targetId: page.targetId });
+      await message('SET_PLATFORM', { platform: { ...platform, enabled: false } });
+    }
   });
   await check('manual injection into an existing page locks scrolling and recovers removed hosts', async () => {
     const page = await configuredPage('app.tradesea.ai');
