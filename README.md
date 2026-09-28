@@ -12,7 +12,7 @@ A local-only Manifest V3 extension that puts your own rules between you and your
 4. Optionally select **Start each new tab with my rules**.
 5. Pin Haki in the extension menu. Open or reload a protected trading page.
 
-For distribution, use `dist/haki-1.0.0.zip`. Extract it before using Load unpacked. The ZIP itself is suitable for Chrome Web Store submission; publication still requires the store listing, a hosted privacy-policy URL, and Google's review.
+For distribution, use `dist/haki-1.0.0.zip`. Extract it before using Load unpacked. The ZIP itself is suitable for Chrome Web Store submission; publication still requires the store listing, a hosted privacy-policy URL, and Google's review. Follow [STORE_SUBMISSION.md](STORE_SUBMISSION.md) for the current submission steps, required assets and remaining work.
 
 The `hakitrade.com` landing page is in [website/index.html](website/index.html). `dist/hakitrade-site.zip` contains the ready-to-host site and a working extension download. See [website/README.md](website/README.md) for preview/deployment instructions. Payments and hosting are not configured.
 
