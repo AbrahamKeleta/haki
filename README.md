@@ -42,6 +42,10 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 
 ## Optional new tab
 
+To inspect the current ad design without an extension installation, run `npm run preview:newtab` and open `dist/newtab-preview.html` in your browser. It generates a standalone HTML/CSS preview from the actual new-tab files, with example rules and both ad cards visible. Editing rules is available in the installed extension.
+
+After local source changes, reload Haki at `chrome://extensions` and open a fresh new tab. If you installed from an extracted ZIP, Chrome continues using that extracted folder; replace it with the updated ZIP contents, or use **Load unpacked** on this repository folder. In **Settings → New tab → Preview with example ads**, the current cards show Tradeify on the left and Lucid Trading on the right, each with a small “Ad” label and arrow link.
+
 Chrome's new-tab override is declared at installation, so Chrome may ask to keep this change even though Haki's preference starts off. With the feature off, the override immediately opens `chrome://new-tab-page/`, Chrome's built-in page. It cannot restore another extension's override. With it on, new tabs show Haki. Preview works without enabling the preference.
 
 New-tab overrides do not apply to incognito windows. Native-new-tab fallback and interactions with other Chromium browsers or new-tab extensions should be checked before claiming compatibility. See [TESTING.md](TESTING.md).
