@@ -48,8 +48,8 @@ const navNumber = document.createElement('span'); navNumber.textContent = '04'; 
 $('[data-section=settings]').before(newTabLink);
 $('[data-section=settings] span').textContent = '05';
 let newTabSaves = Promise.resolve();
-for (const selector of ['#newtab-enabled', '#example-ads']) $(selector).addEventListener('change', () => {
-  const newTabSettings = { enabled: $('#newtab-enabled').checked, showExampleAds: $('#example-ads').checked };
+$('#newtab-enabled').addEventListener('change', () => {
+  const newTabSettings = { enabled: $('#newtab-enabled').checked };
   setStatus($('#newtab-status'), 'Saving…');
   newTabSaves = newTabSaves.then(async () => {
     state = (await request('SAVE_NEWTAB', { newTabSettings })).state;
@@ -70,7 +70,6 @@ try {
     if (location.hash === '#ready') { $('#notice').hidden = false; $('#notice').textContent = 'Haki is ready. Open or reload a protected trading platform to begin your ritual.'; }
     protection(); recovery(); navigate();
     $('#newtab-enabled').checked = state.newTabSettings.enabled;
-    $('#example-ads').checked = state.newTabSettings.showExampleAds;
   }
 } catch (error) { setStatus(globalStatus, error.message, true); }
 chrome.storage.onChanged.addListener(changes => {

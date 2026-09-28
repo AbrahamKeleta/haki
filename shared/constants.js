@@ -60,7 +60,7 @@ export function defaultState() {
     rules: [],
     platforms: BUILT_IN_PLATFORMS.map(p => ({ ...p, enabled: false })),
     promptSettings: { mode: 'tab', intervalHours: 4 },
-    newTabSettings: { enabled: false, showExampleAds: false },
+    newTabSettings: { enabled: false },
     confirmation: { lastConfirmedAt: null, lastConfirmedLocalDate: null },
   };
 }

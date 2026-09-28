@@ -89,7 +89,6 @@ async function handle(message, sender) {
     case 'SAVE_NEWTAB':
       return { state: await writeFields({ newTabSettings: {
         enabled: message.newTabSettings?.enabled === true,
-        showExampleAds: message.newTabSettings?.showExampleAds === true,
       } }) };
     case 'SET_ENABLED':
       if (message.enabled && state.onboardingComplete) validateRules(state.rules);

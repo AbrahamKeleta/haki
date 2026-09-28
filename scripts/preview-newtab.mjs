@@ -15,14 +15,12 @@ let html = source
   .replace(/<link\b[^>]*>/g, '')
   .replace('</head>', `<style>${theme}\n${styles}</style></head>`)
   .replace('<div id="app" hidden>', '<div id="app">')
-  .replace(/(<aside\b[^>]*?) hidden>/g, '$1>')
   .replace('<div id="rules-list"></div>', `<div id="rules-list">${rules}</div>`)
   .replace(/<button id="edit"[\s\S]*?<\/button>/, '')
-  .replace(/<button id="ads-toggle"[\s\S]*?<\/button>/, '')
   .replace(/<dialog\b[\s\S]*?<\/dialog>/, '')
   .replace(/<a\b[^>]*class="brand"[^>]*>([\s\S]*?)<\/a>/, '<span class="brand">$1</span>')
   .replace(/<a\b[^>]*class="settings-link"[^>]*>[\s\S]*?<\/a>/, '<span class="settings-link">DESIGN PREVIEW</span>')
   .replace('src="../assets/icon48.png"', `src="data:image/png;base64,${icon.toString('base64')}"`);
 await mkdir(new URL('dist/', root), { recursive: true });
 await writeFile(new URL('dist/newtab-preview.html', root), html);
-console.log('Open dist/newtab-preview.html in any browser. Both ad cards are visible; no extension installation is needed.');
+console.log('Open dist/newtab-preview.html in any browser. No extension installation is needed.');

@@ -3,12 +3,7 @@ import { ruleEditor, setStatus } from '../shared/editors.js';
 
 const $ = selector => document.querySelector(selector);
 const parameters = new URLSearchParams(location.search), preview = parameters.get('preview') === '1';
-let state, editor, adPreview = false;
-function renderAds() {
-  $('#ad-left').hidden = $('#ad-right').hidden = !adPreview;
-  $('#ads-toggle').textContent = adPreview ? 'Hide example ads' : 'Preview example ads';
-  $('#ads-toggle').setAttribute('aria-pressed', String(adPreview));
-}
+let state, editor;
 function renderRules() {
   $('#rules-list').replaceChildren();
   $('#reflection').textContent = 'Read slowly. Let them sink in.';
@@ -38,7 +33,6 @@ $('#save-edit').addEventListener('click', async () => {
   catch (error) { setStatus($('#edit-status'), error.message, true); }
   finally { $('#save-edit').disabled = false; }
 });
-$('#ads-toggle').addEventListener('click', () => { adPreview = !adPreview; renderAds(); });
 $('#enable').addEventListener('click', async () => {
   try {
     state = (await request('SAVE_NEWTAB', { newTabSettings: { ...state.newTabSettings, enabled: true } })).state;
@@ -53,10 +47,9 @@ try {
     await chrome.tabs.update(tab.id, { url: 'chrome://new-tab-page/' });
   } else {
     state = (await request('GET_STATE')).state;
-    adPreview = parameters.get('ads') === '1' || state.newTabSettings.showExampleAds;
     $('#today').textContent = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date());
     $('#preview').hidden = !preview || state.newTabSettings.enabled;
-    renderRules(); renderAds(); $('#app').hidden = false;
+    renderRules(); $('#app').hidden = false;
     if (state.issues.length) setStatus($('#status'), 'Some settings need attention. Open Settings to repair them.', true);
   }
 } catch { $('#load-error').hidden = false; }

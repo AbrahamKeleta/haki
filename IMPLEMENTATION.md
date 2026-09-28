@@ -8,7 +8,7 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 2. Protection: optional host permissions, persistent document-start registration, isolated accessible gate, confirmation and emergency access.
 3. Product: onboarding, rule editor, platform management, frequency settings and popup.
 4. Release: browser integration tests, icons, privacy policy, store copy and uploadable ZIP.
-5. Added scope: optional new-tab ritual with inline rule editing and two local mock ad cards for Tradeify and Lucid Trading. Ad previews and the new-tab feature are off by default. Arrow links open the companies' websites without Haki click tracking.
+5. Added scope: optional new-tab ritual with inline rule editing. The new-tab feature is off by default. Ad cards, links, controls and runtime support were removed for the initial store submission; their implementation remains in Git history for a future release.
 6. Added scope: static hakitrade.com landing page, actual extension ZIP download, clear manual-install instructions and a public privacy page. No payment integration or deployment.
 
 ## Decisions
@@ -21,7 +21,7 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 - HTTPS only; exact host matching; no implicit subdomain coverage, local/private hosts or IP literals.
 - Existing pages are notified when settings change. New document loads receive the early blocker. Enabling a new site may require a reload for first-paint protection.
 - Chrome new-tab overrides are manifest-level. The disabled preference opens `chrome://new-tab-page/` directly to avoid override recursion. This fallback was verified in isolated Chrome 153. It cannot restore another extension's new-tab override. The preview route works without opting in.
-- Reading/checking rules in a new tab is reflection only and never updates trading-gate confirmation state. Mock ad cards contain local artwork and direct external links, with no remote assets or advertising SDKs. They do not imply a sponsorship.
+- Reading/checking rules in a new tab is reflection only and never updates trading-gate confirmation state. The release contains no ad cards or sponsor links. Legacy ad preferences are ignored and old preview query parameters have no effect.
 - The catalog contains 28 exact hosts, with category filters and search. Fifty custom sites are allowed independently of built-ins. Normalization appends new built-ins disabled, preserves existing selections and promotes custom entries matching a built-in hostname. Legacy lists at the old 50-total limit remain valid across reads and saves.
 - The landing-page carousel uses static markup generated from the central catalog during packaging. Two identical groups scroll left seamlessly; the second is hidden from assistive technology. Hover, keyboard focus and a Pause control stop motion. Reduced-motion users see one static, wrapping list. There are no separators between names.
 

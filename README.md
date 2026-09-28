@@ -25,7 +25,7 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 - Compact popup with protection status, rule/platform counts, management links, **Show Haki Now**, pause confirmation and five-second emergency access.
 - Settings, corrupt-data recovery, local backup before repair/reset and optional-permission cleanup on custom-site removal.
 - Optional new-tab ritual with your rules, inline editing and a local reflection checklist. It never suppresses the trading gate.
-- Two local mock ad cards for Tradeify and Lucid Trading in the new tab's lower corners. Hidden by default; preview them from **Settings → New tab → Preview with example ads**, or the preview control on the new-tab page. Their arrow links open the companies' websites. No ad network, remote artwork or click tracking is included; the previews do not imply a sponsorship.
+- The initial store release contains no advertisements, sponsor links or ad-preview controls.
 
 ## Behavior to know
 
@@ -42,9 +42,9 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 
 ## Optional new tab
 
-To inspect the current ad design without an extension installation, run `npm run preview:newtab` and open `dist/newtab-preview.html` in your browser. It generates a standalone HTML/CSS preview from the actual new-tab files, with example rules and both ad cards visible. Editing rules is available in the installed extension.
+To inspect the new-tab design without an extension installation, run `npm run preview:newtab` and open `dist/newtab-preview.html` in your browser. It generates a standalone HTML/CSS preview from the actual new-tab files, with example rules. Editing rules is available in the installed extension.
 
-After local source changes, reload Haki at `chrome://extensions` and open a fresh new tab. If you installed from an extracted ZIP, Chrome continues using that extracted folder; replace it with the updated ZIP contents, or use **Load unpacked** on this repository folder. In **Settings → New tab → Preview with example ads**, the current cards show Tradeify on the left and Lucid Trading on the right, each with a small “Ad” label and arrow link.
+After local source changes, reload Haki at `chrome://extensions` and open a fresh new tab. If you installed from an extracted ZIP, Chrome continues using that extracted folder; replace it with the updated ZIP contents, or use **Load unpacked** on this repository folder.
 
 Chrome's new-tab override is declared at installation, so Chrome may ask to keep this change even though Haki's preference starts off. With the feature off, the override immediately opens `chrome://new-tab-page/`, Chrome's built-in page. It cannot restore another extension's override. With it on, new tabs show Haki. Preview works without enabling the preference.
 
@@ -62,7 +62,7 @@ No `tabs`, `activeTab`, browsing-history, network interception, or remote-code p
 
 Content CSS hides the page body before it renders while the content script opens a native top-layer dialog in Shadow DOM. The modal makes the underlying page inert; early event guards keep Haki keyboard and pointer input out of platform shortcuts. All guards and scroll restrictions are removed on dismissal. The stylesheet is embedded locally in `content/gate-style.js` so there are no asynchronous resource fetches before rendering the gate.
 
-Storage follows schema version 1 in `shared/constants.js`, adding `newTabSettings: { enabled, showExampleAds }`. No individual checkbox state is saved. `recoveryBackup`, when present, contains one local copy of pre-repair/pre-reset settings. Uninstall clears extension storage. The source of truth for rules/domain validation is `shared/storage.js`/`shared/domains.js`; `shouldPrompt()` in `shared/utils.js` is the only frequency engine.
+Storage follows schema version 1 in `shared/constants.js`, adding `newTabSettings: { enabled }`. Unknown legacy new-tab fields are ignored and dropped when that preference is saved. No individual checkbox state is saved. `recoveryBackup`, when present, contains one local copy of pre-repair/pre-reset settings. Uninstall clears extension storage. The source of truth for rules/domain validation is `shared/storage.js`/`shared/domains.js`; `shouldPrompt()` in `shared/utils.js` is the only frequency engine.
 
 ## Development and validation
 

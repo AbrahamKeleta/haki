@@ -77,7 +77,7 @@ export function normalizeState(raw) {
     };
   }
   if (raw.newTabSettings && typeof raw.newTabSettings === 'object') {
-    state.newTabSettings = { enabled: raw.newTabSettings.enabled === true, showExampleAds: raw.newTabSettings.showExampleAds === true };
+    state.newTabSettings = { enabled: raw.newTabSettings.enabled === true };
   }
   if (state.onboardingComplete && !state.rules.length && !issues.includes('Your rules need repair.')) issues.push('Your rules need repair.');
   return { ...state, issues };

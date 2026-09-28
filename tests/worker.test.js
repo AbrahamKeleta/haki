@@ -127,8 +127,10 @@ test('custom removal releases optional site access', async () => {
 });
 test('new-tab preferences do not affect confirmation or gate registration', async () => {
   await setup(); const before = structuredClone(data.confirmation);
+  data.newTabSettings = { enabled: true, showExampleAds: true };
+  assert.deepEqual((await send('GET_STATE')).state.newTabSettings, { enabled: true });
   const result = await send('SAVE_NEWTAB', { newTabSettings: { enabled: true, showExampleAds: true, injected: 'ignored' } });
-  assert.equal(result.ok, true); assert.deepEqual(data.newTabSettings, { enabled: true, showExampleAds: true });
+  assert.equal(result.ok, true); assert.deepEqual(data.newTabSettings, { enabled: true });
   assert.deepEqual(data.confirmation, before);
 });
 test('an already displayed gate is not dismissed by another tab confirmation', async () => {

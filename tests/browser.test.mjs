@@ -235,10 +235,17 @@ try {
   });
   await check('new tab reflects rules, edits inline, and keeps reflection separate from gate confirmation', async () => {
     const before = (await message('GET_STATE')).state.confirmation;
+    await ui.evaluate('chrome.storage.local.set({newTabSettings:{enabled:true,showExampleAds:true}})');
     const page = watch(await run.open(`${origin()}/newtab/newtab.html?preview=1&ads=1`));
     await until(() => page.evaluate('document.querySelectorAll(".reminder").length === 4'));
-    assert.equal(await page.evaluate('document.querySelector("#ad-left").hidden'), false);
-    await run.screenshot(page, 'newtab-ads');
+    assert.equal(await page.evaluate(`${dom('.example-ad, #ads-toggle, a[href^="https://"]')} === null`), true);
+    const settings = watch(await run.open(`${origin()}/options/options.html#newtab`));
+    await until(() => settings.evaluate('!document.querySelector("#newtab").hidden'));
+    assert.equal(await settings.evaluate(`${dom('#example-ads, a[href*="ads=1"]')} === null`), true);
+    await click(settings, dom('#newtab-enabled'));
+    await until(async () => (await message('GET_STATE')).state.newTabSettings.enabled === false);
+    await click(settings, dom('#newtab-enabled'));
+    await until(async () => (await message('GET_STATE')).state.newTabSettings.enabled === true);
     for (let i = 0; i < 4; i++) await click(page, `document.querySelectorAll('.reminder')[${i}]`);
     assert.deepEqual((await message('GET_STATE')).state.confirmation, before);
     await click(page, dom('#edit'));
@@ -246,7 +253,7 @@ try {
     await click(page, dom('#save-edit'));
     await until(() => page.evaluate('document.querySelector(".reminder-text").textContent === "Trade with a clear mind"'));
     assert.equal((await message('GET_STATE')).state.rules[0].text, 'Trade with a clear mind');
-    await click(page, dom('#ads-toggle')); await run.screenshot(page, 'newtab-clean');
+    await run.screenshot(page, 'newtab-clean');
     await page.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
     assert.equal(await page.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
     await run.screenshot(page, 'newtab-mobile');

@@ -8,7 +8,7 @@ Haki stores your trading rules and preferences locally in your browser using `ch
 
 - Your rule text, identifiers and ordering.
 - Trading website hostnames you select and their enabled/disabled state.
-- Onboarding/protection preferences, reminder frequency, optional new-tab preference and example-ad preview preference.
+- Onboarding/protection preferences, reminder frequency and optional new-tab preference.
 - The time and local calendar date of your last gate confirmation.
 - One local recovery copy when damaged settings are repaired or settings are reset.
 
@@ -28,10 +28,10 @@ Haki requests access to each exact HTTPS host you enable. The broad optional hos
 
 The optional new-tab feature displays your local rules. With that preference disabled, Haki redirects to Chrome's built-in New Tab page. Chrome's own services and network behavior are governed by Chrome's policies, not Haki.
 
-The optional ad previews use local mock artwork and text for Tradeify and Lucid Trading and are labeled “Ad.” They do not imply a sponsorship. Their arrow links open the companies' websites only when clicked. Haki does not record these clicks or add tracking parameters; the destination sites operate under their own privacy policies. There is no advertising network, profiling, remote ad content or ad tracking in Haki.
+This release contains no advertisements, sponsored links, advertising network or ad tracking.
 
 ## Your controls and retention
 
 Edit your rules and preferences in Settings. Pause protection, remove websites, revoke browser permissions, or uninstall Haki at any time. Reset returns settings to defaults while keeping one local recovery copy; uninstalling clears the extension's local storage. Chrome profile management, device backups, other extensions and organizational browser policies are outside Haki's control.
 
-If future functionality introduces real advertising or data collection, this policy and the relevant user controls must be updated before release.
+If future functionality changes how data is handled, this policy and the relevant user controls must be updated before release.
