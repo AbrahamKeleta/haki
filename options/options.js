@@ -11,7 +11,7 @@ function protection() {
   $('#protection').setAttribute('aria-label', state.enabled ? 'Pause protection' : 'Resume protection');
 }
 function navigate() {
-  const section = ['rules', 'platforms', 'frequency', 'settings'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'rules';
+  const section = ['rules', 'platforms', 'frequency', 'newtab', 'settings'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'rules';
   document.querySelectorAll('.settings-section').forEach(el => { el.hidden = el.id !== section; });
   document.querySelectorAll('[data-section]').forEach(el => { if (el.dataset.section === section) el.setAttribute('aria-current', 'page'); else el.removeAttribute('aria-current'); });
 }
@@ -42,6 +42,20 @@ document.querySelectorAll('[data-close]').forEach(button => button.addEventListe
 window.addEventListener('hashchange', navigate);
 window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
 emergencyHold($('#emergency'), $('#emergency-status'));
+const newTabLink = document.createElement('a');
+newTabLink.href = '#newtab'; newTabLink.dataset.section = 'newtab'; newTabLink.textContent = 'New tab';
+const navNumber = document.createElement('span'); navNumber.textContent = '04'; newTabLink.append(navNumber);
+$('[data-section=settings]').before(newTabLink);
+$('[data-section=settings] span').textContent = '05';
+let newTabSaves = Promise.resolve();
+for (const selector of ['#newtab-enabled', '#example-ads']) $(selector).addEventListener('change', () => {
+  const newTabSettings = { enabled: $('#newtab-enabled').checked, showExampleAds: $('#example-ads').checked };
+  setStatus($('#newtab-status'), 'Saving…');
+  newTabSaves = newTabSaves.then(async () => {
+    state = (await request('SAVE_NEWTAB', { newTabSettings })).state;
+    setStatus($('#newtab-status'), 'Saved. Open a new tab to see your choice.');
+  }).catch(error => setStatus($('#newtab-status'), error.message, true));
+});
 try {
   state = (await request('GET_STATE')).state;
   if (!state.onboardingComplete && !state.issues.length) location.replace('../onboarding/onboarding.html');
@@ -55,6 +69,8 @@ try {
     });
     if (location.hash === '#ready') { $('#notice').hidden = false; $('#notice').textContent = 'Haki is ready. Open or reload a protected trading platform to begin your ritual.'; }
     protection(); recovery(); navigate();
+    $('#newtab-enabled').checked = state.newTabSettings.enabled;
+    $('#example-ads').checked = state.newTabSettings.showExampleAds;
   }
 } catch (error) { setStatus(globalStatus, error.message, true); }
 chrome.storage.onChanged.addListener(changes => {

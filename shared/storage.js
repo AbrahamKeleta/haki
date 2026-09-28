@@ -75,6 +75,9 @@ export function normalizeState(raw) {
       lastConfirmedLocalDate: typeof lastConfirmedLocalDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(lastConfirmedLocalDate) ? lastConfirmedLocalDate : null,
     };
   }
+  if (raw.newTabSettings && typeof raw.newTabSettings === 'object') {
+    state.newTabSettings = { enabled: raw.newTabSettings.enabled === true, showExampleAds: raw.newTabSettings.showExampleAds === true };
+  }
   if (state.onboardingComplete && !state.rules.length && !issues.includes('Your rules need repair.')) issues.push('Your rules need repair.');
   return { ...state, issues };
 }

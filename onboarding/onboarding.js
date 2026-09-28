@@ -35,6 +35,10 @@ function render() {
     for (const [label, value] of [['Your rules', state.rules.length], ['Protected platforms', state.platforms.filter(p => p.enabled).length], ['Your rhythm', frequencyLabel(state.promptSettings)]]) {
       const row = element('div', { className: 'summary-line' }); row.append(element('span', { className: 'muted' }, label), element('span', {}, String(value))); screen.append(row);
     }
+    const optIn = element('label', { className: 'newtab-optin' });
+    const checkbox = element('input', { type: 'checkbox', id: 'newtab-optin' }); checkbox.checked = state.newTabSettings.enabled;
+    optIn.append(checkbox, element('span', {}, 'Start each new tab with my rules'));
+    screen.append(optIn, element('p', { className: 'hint' }, 'Optional. A quiet reminder, with your rules always within reach. Change this anytime in Settings.'));
   }
   screen.focus({ preventScroll: true });
 }
@@ -45,7 +49,10 @@ next.addEventListener('click', async () => {
     if (step === 1) state = (await request('SAVE_RULES', { rules: editor.value() })).state;
     if (step === 2 && !state.platforms.some(p => p.enabled)) throw new Error('Enable at least one platform and grant access to continue.');
     if (step === 3) state = (await request('SAVE_PROMPT', { promptSettings: editor.value() })).state;
-    if (step === 4) { await request('FINISH_SETUP'); location.href = '../options/options.html#ready'; return; }
+    if (step === 4) {
+      await request('SAVE_NEWTAB', { newTabSettings: { ...state.newTabSettings, enabled: document.querySelector('#newtab-optin').checked } });
+      await request('FINISH_SETUP'); location.href = '../options/options.html#ready'; return;
+    }
     step++; render();
   } catch (error) { setStatus(status, error.message, true); }
   finally { working = false; next.disabled = back.disabled = false; }

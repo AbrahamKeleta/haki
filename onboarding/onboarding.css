@@ -22,6 +22,8 @@ main { width: min(100%, 690px); padding: 54px 64px 30px; margin: auto; }
 .local-note { text-align: center; font-size: 10px; margin: 38px 0 0; color: #859bb2; }
 .ready-symbol { width: 60px; height: 60px; border: 1px solid #159bff; color: #51c8ff; background: #082441; border-radius: 50%; display: grid; place-items: center; font-size: 26px; margin-bottom: 30px; box-shadow: 0 0 35px #159bff20; }
 .summary-line { display: flex; justify-content: space-between; gap: 15px; padding: 13px 0; border-bottom: 1px solid var(--haki-border); font-size: 13px; }
+.newtab-optin { display: flex; gap: 12px; align-items: center; margin-top: 28px; font-size: 13px; cursor: pointer; }
+.newtab-optin input { width: 17px; height: 17px; accent-color: var(--haki-accent); }
 @media (min-width: 1500px) { main { padding-top: 80px; padding-bottom: 80px; } }
 @media (max-width: 950px) { main { padding: 40px 30px; } .identity { padding: 35px 30px; } }
 @media (max-width: 700px) { body { display: block; } .identity { min-height: 0; padding: 22px 24px; border: 0; border-bottom: 1px solid var(--haki-border); } .identity-copy, .chart-art, .identity-footer { display: none; } main { padding: 28px 24px; } .step-track { margin-bottom: 30px; } }

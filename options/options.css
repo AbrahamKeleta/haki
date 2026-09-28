@@ -22,5 +22,9 @@ main { padding: 38px 64px 24px; max-width: 1010px; width: 100%; }
 .global-status { position: fixed; bottom: 10px; right: 20px; max-width: 420px; background: #06101c; }
 #notice { color: #b5e7ff; border-color: #195588; }
 #recovery { border-color: #795243; }
+.setting-toggle { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.setting-toggle h2 { margin-bottom: 8px; }
+.setting-toggle p { font-size: 13px; }
+.preview-link { display: inline-block; margin-top: 16px; font-size: 11px; }
 @media (max-width: 1000px) { main { padding: 32px; } body { grid-template-columns: 230px 1fr; } .sidebar { padding: 32px 20px; } }
 @media (max-width: 700px) { body { display: block; } .sidebar { height: auto; position: static; padding: 24px; } .sidebar-tagline, .sidebar-bottom { display: none; } .sidebar nav { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 20px; } .sidebar nav a { padding: 8px; font-size: 11px; } .sidebar nav span { display: none; } main { padding: 24px; } .page-top { margin-bottom: 28px; padding-bottom: 24px; } .page-top .eyebrow { font-size: 8px; } }
