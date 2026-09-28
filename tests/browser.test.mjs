@@ -233,6 +233,19 @@ try {
     await message('REMOVE_PLATFORM', { id: 'custom-example.com' });
     assert.equal(await ui.evaluate('chrome.permissions.contains({origins:["https://example.com/*"]})'), false);
   });
+  await check('manual injection into an existing page locks scrolling and recovers removed hosts', async () => {
+    const page = await configuredPage('app.tradesea.ai');
+    assert.equal(await page.evaluate(`!!${gate}`), false);
+    await grant('app.tradesea.ai');
+    await message('SET_PLATFORM', { platform: { hostname: 'app.tradesea.ai', enabled: true } });
+    await run.browser.send('Target.activateTarget', { targetId: page.targetId });
+    await message('SHOW_NOW'); await waitGate(page);
+    assert.equal(await page.evaluate('getComputedStyle(document.documentElement).overflow'), 'hidden');
+    await page.evaluate('document.querySelector("#haki-root").remove()');
+    await key(page, 'a', 'KeyA');
+    assert.equal(await page.evaluate('pageCalls.keys'), 1);
+    assert.equal(await page.evaluate('!!document.querySelector("#haki-scroll-lock")'), false);
+  });
   const persisted = (await message('GET_STATE')).state;
   const profile = run.profile;
   await run.close(); run = null;

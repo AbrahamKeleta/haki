@@ -2,7 +2,7 @@
   if (globalThis.__hakiInstalled) return;
   globalThis.__hakiInstalled = true;
   const documentToken = crypto.randomUUID();
-  let host, shadow, dialog, card, ready, progress, fill;
+  let host, shadow, dialog, card, ready, progress, fill, scrollStyle;
   let rules = [], checked = new Set(), sessionGateConfirmed = false, sessionBypassed = false;
   let previousFocus, busy = false, generation = 0, watchdog, holdTimer, holdStarted;
   const events = ['keydown', 'keyup', 'keypress', 'click', 'dblclick', 'pointerdown', 'pointerup', 'pointercancel', 'mousedown', 'mouseup', 'touchstart', 'touchend', 'wheel', 'contextmenu', 'focusin'];
@@ -39,7 +39,10 @@
     const title = node('h1', '', 'A moment for your process.'); title.id = 'haki-title';
     card.append(brand(), title, node('p', 'intro', 'Loading your rules…'));
     dialog.append(card); shadow.append(style, dialog);
-    document.documentElement.append(host);
+    // Manual insertion on an already-open page may not have registered preflight CSS.
+    scrollStyle = node('style'); scrollStyle.id = 'haki-scroll-lock';
+    scrollStyle.textContent = 'html { overflow: hidden !important; overscroll-behavior: none !important; }';
+    document.documentElement.append(scrollStyle, host);
     for (const name of events) window.addEventListener(name, guard, { capture: true, passive: false });
     window.addEventListener('blur', cancelHold);
     dialog.showModal();
@@ -55,13 +58,15 @@
     document.documentElement.setAttribute('data-haki-ready', '');
     document.documentElement.removeAttribute('data-haki-blocked');
     if (dialog?.open) dialog.close();
-    host?.remove(); host = shadow = dialog = card = null;
+    host?.remove(); scrollStyle?.remove(); host = shadow = dialog = card = scrollStyle = null;
     busy = false; checked.clear();
     if (previousFocus?.isConnected && typeof previousFocus.focus === 'function') previousFocus.focus({ preventScroll: true });
   }
   function focusable() { return [...shadow.querySelectorAll('button:not(:disabled)')]; }
   function guard(event) {
     if (!host) return;
+    // Also recover if an extension reload/emergency fallback removed the old host.
+    if (!host.isConnected) { release(); return; }
     const path = event.composedPath();
     const inside = path.includes(dialog);
     const control = path.find(el => el instanceof HTMLButtonElement && shadow.contains(el));

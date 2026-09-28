@@ -147,6 +147,7 @@ async function handle(message, sender) {
           document.documentElement.setAttribute('data-haki-ready', '');
           document.documentElement.removeAttribute('data-haki-blocked');
           document.getElementById('haki-root')?.remove();
+          document.getElementById('haki-scroll-lock')?.remove();
         } });
       }
       return {};
