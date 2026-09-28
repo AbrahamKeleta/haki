@@ -8,6 +8,8 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 2. Protection: optional host permissions, persistent document-start registration, isolated accessible gate, confirmation and emergency access.
 3. Product: onboarding, rule editor, platform management, frequency settings and popup.
 4. Release: browser integration tests, icons, privacy policy, store copy and uploadable ZIP.
+5. Added scope: optional new-tab ritual with inline rule editing and two fictional, local example ad cards. Ad previews and the new-tab feature are off by default.
+6. Added scope: static hakitrade.com landing page, actual extension ZIP download, clear manual-install instructions and a public privacy page. No payment integration or deployment.
 
 ## Decisions
 
@@ -18,6 +20,8 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 - Supplied reference: near-black navy, electric blue, cyan outlines, cool white and a subtle chart grid. Use system typography and restrained glow.
 - HTTPS only; exact host matching; no implicit subdomain coverage, local/private hosts or IP literals.
 - Existing pages are notified when settings change. New document loads receive the early blocker. Enabling a new site may require a reload for first-paint protection.
+- Chrome new-tab overrides are manifest-level. The disabled preference opens `chrome://new-tab-page/` directly to avoid override recursion. This fallback was verified in isolated Chrome 153. It cannot restore another extension's new-tab override. The preview route works without opting in.
+- Reading/checking rules in a new tab is reflection only and never updates trading-gate confirmation state. Mock ad cards contain no links, remote assets, SDKs or real sponsors.
 
 ## Verified built-in hosts (2026-09-27)
 
