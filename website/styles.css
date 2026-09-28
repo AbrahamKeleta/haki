@@ -45,10 +45,23 @@ h1 span { color: #44b4ff; }
 .preview-track span { display: block; height: 100%; width: 75%; background: #199fff; }
 .preview-ready { background: #102439; border: 1px solid #203a50; padding: 14px; border-radius: 6px; font-size: 9px; letter-spacing: .13em; color: #8aa2bb; }
 .preview-footer { margin-top: 17px; color: #8aa4bc; font-size: 8px; }
-.platform-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-block: 26px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
-.platform-strip > span { color: #7894af; font-size: 8px; letter-spacing: .13em; }
-.platform-strip div { display: flex; gap: 38px; font-size: 15px; color: #becddd; font-weight: 550; }
-.platform-strip .custom-platform { font-size: 11px; color: #8fa6bc; font-weight: 400; align-self: center; }
+.platform-strip { border-block: 1px solid var(--border); padding-block: 23px 26px; }
+.platform-strip-heading { position: relative; display: flex; justify-content: center; align-items: center; min-height: 26px; margin-bottom: 18px; padding-inline: 62px; }
+.platform-strip-heading p { color: #7894af; font-size: 8px; letter-spacing: .13em; text-align: center; }
+.platform-motion { position: absolute; right: 0; color: #9bb2c8; background: transparent; border: 1px solid #294157; border-radius: 5px; padding: 3px 9px; font-size: 9px; }
+.platform-motion:hover { color: var(--cyan); border-color: #446983; }
+.platform-window { overflow-x: auto; scrollbar-width: thin; scrollbar-color: #294961 #07131d; }
+.platform-window:focus-visible { outline-offset: 7px; border-radius: 4px; }
+.platform-track { display: flex; width: max-content; }
+.platform-group { display: flex; flex: 0 0 auto; align-items: center; gap: 48px; list-style: none; margin: 0; padding: 7px 48px 7px 0; }
+.platform-group li { flex-shrink: 0; color: #becddd; font-size: 15px; font-weight: 550; white-space: nowrap; }
+.platform-group .custom-platform { font-size: 11px; color: #8fa6bc; font-weight: 400; }
+.platform-group-copy { display: none; }
+.is-animated .platform-window { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+.is-animated .platform-track { animation: platform-drift 125s linear infinite; }
+.is-animated .platform-group-copy { display: flex; }
+.platform-window:hover .platform-track, .platform-window:focus-within .platform-track, .platform-strip[data-paused=true] .platform-track { animation-play-state: paused; }
+@keyframes platform-drift { to { transform: translateX(-50%); } }
 .how-section { padding-block: 110px; }
 .section-heading { max-width: 620px; }
 h2 { font-size: clamp(29px, 3.5vw, 43px); line-height: 1.18; font-weight: 450; letter-spacing: -.03em; }
@@ -99,6 +112,6 @@ details a { color: var(--cyan); }
 .privacy-page p, .privacy-page li { color: var(--muted); font-size: 14px; }
 .privacy-page p + p { margin-top: 18px; }
 .privacy-page a { color: var(--cyan); }
-@media (max-width: 1000px) { .hero { gap: 40px; padding-block: 50px 65px; } .hero h1 { font-size: 59px; } .ritual-body { padding: 26px 20px 20px; } .ritual-body h2 { font-size: 20px; } .platform-strip { flex-direction: column; align-items: flex-start; } .newtab-section { gap: 32px; } .steps { gap: 28px; } }
-@media (max-width: 700px) { .wrap { width: calc(100% - 40px); } .site-header { padding-block: 22px; } .site-header nav { gap: 14px; } .site-header nav > a:not(.nav-download) { display: none; } .hero { grid-template-columns: 1fr; gap: 48px; padding-block: 30px 50px; } .hero h1 { font-size: clamp(53px, 14vw, 75px); } .hero-description { font-size: 14px; max-width: 440px; } .ritual-preview { max-width: 460px; width: 100%; margin: auto; transform: none; } .ritual-body { padding: 28px 25px 24px; } .ritual-body h2 { font-size: 25px; } .hero-details { gap: 13px; } .platform-strip div { gap: 17px; flex-wrap: wrap; font-size: 13px; } .how-section, .install-section { padding-block: 70px; } .steps { grid-template-columns: 1fr; gap: 32px; margin-top: 35px; } .steps h3 { margin-top: 12px; } .newtab-section { grid-template-columns: 1fr; padding-block: 50px; } .newtab-copy { max-width: 420px; } .install-steps { grid-template-columns: 1fr; } .install-footnote { margin-left: 0; } .faq-section { grid-template-columns: 1fr; gap: 10px; padding-block: 45px 65px; } .site-footer > div { flex-wrap: wrap; gap: 15px; } .site-footer nav { flex-wrap: wrap; } .final-cta { padding: 40px 18px; } .final-cta h2 { font-size: 30px; } }
-@media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (max-width: 1000px) { .hero { gap: 40px; padding-block: 50px 65px; } .hero h1 { font-size: 59px; } .ritual-body { padding: 26px 20px 20px; } .ritual-body h2 { font-size: 20px; } .newtab-section { gap: 32px; } .steps { gap: 28px; } }
+@media (max-width: 700px) { .wrap { width: calc(100% - 40px); } .site-header { padding-block: 22px; } .site-header nav { gap: 14px; } .site-header nav > a:not(.nav-download) { display: none; } .hero { grid-template-columns: 1fr; gap: 48px; padding-block: 30px 50px; } .hero h1 { font-size: clamp(53px, 14vw, 75px); } .hero-description { font-size: 14px; max-width: 440px; } .ritual-preview { max-width: 460px; width: 100%; margin: auto; transform: none; } .ritual-body { padding: 28px 25px 24px; } .ritual-body h2 { font-size: 25px; } .hero-details { gap: 13px; } .platform-group { gap: 32px; padding-right: 32px; } .platform-group li { font-size: 13px; } .how-section, .install-section { padding-block: 70px; } .steps { grid-template-columns: 1fr; gap: 32px; margin-top: 35px; } .steps h3 { margin-top: 12px; } .newtab-section { grid-template-columns: 1fr; padding-block: 50px; } .newtab-copy { max-width: 420px; } .install-steps { grid-template-columns: 1fr; } .install-footnote { margin-left: 0; } .faq-section { grid-template-columns: 1fr; gap: 10px; padding-block: 45px 65px; } .site-footer > div { flex-wrap: wrap; gap: 15px; } .site-footer nav { flex-wrap: wrap; } .final-cta { padding: 40px 18px; } .final-cta h2 { font-size: 30px; } }
+@media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } .platform-window { overflow: visible; mask-image: none; } .platform-track { width: 100%; } .platform-group { flex-wrap: wrap; flex-shrink: 1; justify-content: center; gap: 14px 28px; padding-inline: 0; } .platform-group-copy { display: none !important; } }

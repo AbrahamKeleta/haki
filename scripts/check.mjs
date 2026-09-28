@@ -1,6 +1,7 @@
 import { readFile, readdir, access } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import { PLATFORM_MARKUP } from './site-platforms.mjs';
 
 const manifest = JSON.parse(await readFile('manifest.json', 'utf8'));
 assert.equal(manifest.manifest_version, 3);
@@ -31,4 +32,6 @@ for (const size of [16, 32, 48, 128]) {
   const png = await readFile(`assets/icon${size}.png`);
   assert.equal(png.readUInt32BE(16), size); assert.equal(png.readUInt32BE(20), size);
 }
+assert.ok((await readFile('website/index.html', 'utf8')).includes(PLATFORM_MARKUP), 'Run npm run site:platforms to sync the landing-page catalog');
+assert.equal(spawnSync(process.execPath, ['--check', 'website/site.js']).status, 0);
 console.log(`Manifest, ${count} runtime scripts, local assets, CSP-compatible HTML and generated gate CSS passed.`);

@@ -7,6 +7,7 @@
     "test": "node --test tests/*.test.js",
     "check": "node scripts/check.mjs",
     "assets": "node scripts/build-assets.mjs",
-    "package": "python3 scripts/package.py"
+    "site:platforms": "node scripts/site-platforms.mjs --write",
+    "package": "node scripts/site-platforms.mjs --write && python3 scripts/package.py"
   }
 }

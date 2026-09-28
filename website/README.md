@@ -10,3 +10,7 @@ Static HTML/CSS/JavaScript, local images and a real extension ZIP download. No p
 No deployment or DNS change has been performed. There are no checkout buttons or claims that payment is configured. Hosting-provider disclosures/contact details can be added once the host is selected. For a future Web Store release, replace download links with the actual listing URL and update the installation instructions.
 
 Local preview: `python3 -m http.server 8080 --directory website`, then visit `http://localhost:8080`. Clipboard copying works on localhost/HTTPS and has a text fallback.
+
+The supported-platform names scroll left continuously, with no dots or separators. Hover or focus the strip to pause, or use its Pause/Resume control. Reduced-motion preferences produce a static wrapping list. Without JavaScript, the single list can be scrolled horizontally.
+
+Platform markup is generated from `shared/constants.js` by `npm run site:platforms`, also run automatically by `npm run package`. `npm run check` rejects an out-of-date list. The website remains standalone: no extension modules or runtime fetches are needed.
