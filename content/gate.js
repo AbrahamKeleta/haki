@@ -36,7 +36,6 @@
     dialog = node('dialog'); dialog.setAttribute('aria-modal', 'true'); dialog.setAttribute('aria-labelledby', 'haki-title'); dialog.tabIndex = -1;
     dialog.addEventListener('cancel', event => event.preventDefault());
     card = node('section', 'ritual');
-    const title = node('h1', '', 'A moment for your process.'); title.id = 'haki-title';
     card.append(brand(), title, node('p', 'intro', 'Loading your rules…'));
     dialog.append(card); shadow.append(style, dialog);
     // Manual insertion on an already-open page may not have registered preflight CSS.
