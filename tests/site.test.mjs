@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { readFile, stat } from 'node:fs/promises';
+import { resolve, extname, sep } from 'node:path';
+import { launch, until } from './browser-driver.mjs';
+
+const root = resolve('website'), errors = [];
+const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png', '.zip': 'application/zip' };
+const server = createServer(async (request, response) => {
+  try {
+    const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
+    let path = resolve(root, `.${pathname}`);
+    if (!path.startsWith(root + sep) && path !== root) { response.writeHead(403); return response.end(); }
+    if ((await stat(path)).isDirectory()) path = resolve(path, 'index.html');
+    response.setHeader('Content-Type', types[extname(path)] || 'application/octet-stream'); response.end(await readFile(path));
+  } catch { response.writeHead(404); response.end('Not found'); }
+});
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const base = `http://127.0.0.1:${server.address().port}`;
+let run;
+try {
+  run = await launch(); const page = await run.open(`${base}/`);
+  page.on('Runtime.exceptionThrown', event => errors.push(event.exceptionDetails.text));
+  await until(() => page.evaluate('document.readyState === "complete"'));
+  assert.equal(await page.evaluate('document.querySelector("h1").textContent'), 'Your rules.Before youremotions.');
+  const links = await page.evaluate('Array.from(document.querySelectorAll("a[href]"),a=>a.getAttribute("href"))');
+  for (const href of new Set(links)) {
+    if (href.startsWith('#')) assert.ok(await page.evaluate(`!!document.querySelector(${JSON.stringify(href)})`));
+    else assert.equal((await fetch(`${base}/${href}`)).status, 200, href);
+  }
+  const zip = await fetch(`${base}/downloads/haki-1.0.0.zip`);
+  assert.equal(zip.headers.get('content-type'), 'application/zip');
+  assert.deepEqual(Buffer.from(await zip.arrayBuffer()), await readFile('dist/haki-1.0.0.zip'));
+  console.log('PASS landing links and exact extension ZIP download');
+  const resources = await page.evaluate('performance.getEntriesByType("resource").map(r=>r.name)');
+  assert.ok(resources.every(url => url.startsWith(base)), 'All assets must remain local.');
+  await page.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
+  assert.equal(await page.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
+  await run.screenshot(page, 'website-desktop');
+  await page.evaluate('document.querySelector("#copy-address").click()');
+  await until(() => page.evaluate('document.querySelector("#copy-status").textContent.length > 0'));
+  await page.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
+  await page.evaluate('scrollTo(0,0)');
+  assert.equal(await page.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
+  await run.screenshot(page, 'website-mobile');
+  await page.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+  assert.equal(await page.evaluate('getComputedStyle(document.documentElement).scrollBehavior'), 'auto');
+  console.log('PASS desktop/mobile layout, address copying and reduced motion');
+  await page.send('Page.navigate', { url: `${base}/privacy.html` });
+  await until(() => page.evaluate('document.querySelector("h1")?.textContent === "Your rules stay yours."'));
+  assert.deepEqual(errors, []);
+  console.log('PASS privacy page; no uncaught page errors or third-party resources');
+} finally { if (run) await run.close(); await new Promise(resolve => server.close(resolve)); }

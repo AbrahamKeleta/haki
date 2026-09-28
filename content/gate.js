@@ -177,7 +177,7 @@
     clearTimeout(watchdog);
     watchdog = setTimeout(() => { if (current === generation && host) renderError(); }, 6000);
     try {
-      const response = await chrome.runtime.sendMessage({ type: 'GET_GATE', sessionGateConfirmed });
+      const response = await chrome.runtime.sendMessage({ type: 'GET_GATE', sessionGateConfirmed, gateActive: !!host && rules.length > 0 });
       if (current !== generation) return;
       clearTimeout(watchdog);
       if (!response?.ok) throw new Error();

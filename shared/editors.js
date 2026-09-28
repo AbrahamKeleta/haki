@@ -68,6 +68,7 @@ export function platformEditor(container, initialPlatforms, status, onSaved = ()
     finally { pending = false; }
   }
   function render() {
+    const focusedLabel = container.contains(document.activeElement) ? document.activeElement.getAttribute('aria-label') : null;
     list.replaceChildren();
     for (const platform of platforms) {
       const row = element('div', { className: 'platform-row' });
@@ -89,6 +90,7 @@ export function platformEditor(container, initialPlatforms, status, onSaved = ()
       }
       list.append(row);
     }
+    if (focusedLabel) [...list.querySelectorAll('[aria-label]')].find(el => el.getAttribute('aria-label') === focusedLabel)?.focus();
   }
   form.addEventListener('submit', async event => {
     event.preventDefault(); if (pending) return;

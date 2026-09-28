@@ -26,8 +26,16 @@ async function initialize(details) {
     const existing = await chrome.storage.local.get(null);
     if (!Object.keys(existing).length) await chrome.storage.local.set(defaultState());
   }
-  await syncRegistration(await readState());
-  if (details?.reason === 'install') await chrome.tabs.create({ url: chrome.runtime.getURL('onboarding/onboarding.html') });
+  let state = await readState();
+  let accessChanged = false;
+  for (const platform of state.platforms.filter(p => p.enabled)) {
+    if (!await chrome.permissions.contains({ origins: [originPattern(platform.hostname)] })) {
+      platform.enabled = false; accessChanged = true;
+    }
+  }
+  if (accessChanged) state = await writeFields({ platforms: state.platforms });
+  await syncRegistration(state);
+  if (details?.reason === 'install' && !state.onboardingComplete) await chrome.tabs.create({ url: chrome.runtime.getURL('onboarding/onboarding.html') });
 }
 
 chrome.runtime.onInstalled.addListener(details => { serialized(() => initialize(details)).catch(log); });
@@ -61,7 +69,7 @@ async function handle(message, sender) {
       // A registered page with corrupt settings gets a repair screen, not a blank blocker.
       if (state.issues.length) return { show: true, error: 'We couldn’t load your rules.' };
       if (!platform) return { show: false };
-      return { show: shouldPrompt(state.promptSettings, state.confirmation, { sessionGateConfirmed: message.sessionGateConfirmed === true }), rules: state.rules };
+      return { show: message.gateActive === true || shouldPrompt(state.promptSettings, state.confirmation, { sessionGateConfirmed: message.sessionGateConfirmed === true }), rules: state.rules };
     }
     if (!platform || state.issues.length || !state.rules.length) throw new Error('Your settings need repair. Open Haki settings.');
     const signature = JSON.stringify(state.rules.map(r => [r.id, r.text]));
