@@ -24,11 +24,11 @@ Before submitting, add the actual publisher/support contact and hosting-specific
 | Screenshots | 1–5, 1280 × 800 preferred or 640 × 400; full bleed, square corners | Local captures exist in `test-results/`, but must be recaptured at store dimensions |
 | Marquee image | 1400 × 560, optional | Not needed for the first submission |
 
-These sizes and required assets come from [Google's image guide](https://developer.chrome.com/docs/webstore/images). Suggested screenshots: the actual gate, the clean new-tab page, and settings. Use example rules, with no account or trading data visible. The fictional ad preview is off by default; show the clean new-tab experience first.
+These sizes and required assets come from [Google's image guide](https://developer.chrome.com/docs/webstore/images). Suggested screenshots: the actual gate, the clean new-tab page, and settings. Use example rules, with no account or trading data visible. The mock ad preview is off by default; show the clean new-tab experience first.
 
 ## 4. Validate and upload the extension ZIP
 
-Finish the visible Chrome, demo-platform and accessibility checks in [TESTING.md](TESTING.md). Automated coverage currently includes 25 unit/worker tests and 21 Chrome integration checks, including TradingView. Live authenticated brokerage layouts are not covered by the fixture tests.
+Finish the visible Chrome, demo-platform and accessibility checks in [TESTING.md](TESTING.md). Automated coverage currently includes 29 unit/worker tests and 23 Chrome integration checks, including the expanded 28-platform catalog. Live authenticated brokerage layouts are not covered by the fixture tests.
 
 From this repository:
 
@@ -44,7 +44,7 @@ In the dashboard choose **New item** and upload **`dist/haki-1.0.0.zip`**. It co
 
 - **Store listing:** Use the name, short description and full description in [STORE_LISTING.md](STORE_LISTING.md). Choose the closest available productivity category, upload the images, and enter the real website/support details.
 - **Privacy practices:** Paste the single-purpose and permission justifications from that file. Remote code is **No**. Haki keeps rules, selected hostnames, preferences and confirmation dates locally; it has no developer-side transmission, analytics or ad network. Answer the live data questionnaire according to its definitions and the policy; do not treat local storage as if no data is handled at all. The broad optional host declaration supports user-added websites, while each actual grant covers only the exact site the user enables. [Privacy guide](https://developer.chrome.com/docs/webstore/cws-dashboard-privacy)
-- **New-tab behavior:** Keep the listing disclosure: Chrome registers an override at installation; the in-app preference starts off and opens Chrome's built-in page until enabled. The optional example ads are local fictional mockups, not an advertising integration.
+- **New-tab behavior:** Keep the listing disclosure: Chrome registers an override at installation; the in-app preference starts off and opens Chrome's built-in page until enabled. Optional Tradeify/Lucid mock ad cards use local artwork and direct external links, with no advertising SDK or Haki click tracking. No sponsorship is implied.
 - **Distribution:** Choose Public for launch, Unlisted for installation by link, or Private for designated testers; choose target regions. All three still require review. Haki currently has no purchase or licensing flow. [Distribution guide](https://developer.chrome.com/docs/webstore/cws-dashboard-distribution)
 - **Test instructions:** Paste the reviewer steps in [STORE_LISTING.md](STORE_LISTING.md). Haki itself requires no credentials. Reviewers can exercise the gate on a public custom test website without a brokerage account.
 

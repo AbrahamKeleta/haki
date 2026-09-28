@@ -8,7 +8,7 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 2. Protection: optional host permissions, persistent document-start registration, isolated accessible gate, confirmation and emergency access.
 3. Product: onboarding, rule editor, platform management, frequency settings and popup.
 4. Release: browser integration tests, icons, privacy policy, store copy and uploadable ZIP.
-5. Added scope: optional new-tab ritual with inline rule editing and two fictional, local example ad cards. Ad previews and the new-tab feature are off by default.
+5. Added scope: optional new-tab ritual with inline rule editing and two local mock ad cards for Tradeify and Lucid Trading. Ad previews and the new-tab feature are off by default. Arrow links open the companies' websites without Haki click tracking.
 6. Added scope: static hakitrade.com landing page, actual extension ZIP download, clear manual-install instructions and a public privacy page. No payment integration or deployment.
 
 ## Decisions
@@ -21,7 +21,9 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 - HTTPS only; exact host matching; no implicit subdomain coverage, local/private hosts or IP literals.
 - Existing pages are notified when settings change. New document loads receive the early blocker. Enabling a new site may require a reload for first-paint protection.
 - Chrome new-tab overrides are manifest-level. The disabled preference opens `chrome://new-tab-page/` directly to avoid override recursion. This fallback was verified in isolated Chrome 153. It cannot restore another extension's new-tab override. The preview route works without opting in.
-- Reading/checking rules in a new tab is reflection only and never updates trading-gate confirmation state. Mock ad cards contain no links, remote assets, SDKs or real sponsors.
+- Reading/checking rules in a new tab is reflection only and never updates trading-gate confirmation state. Mock ad cards contain local artwork and direct external links, with no remote assets or advertising SDKs. They do not imply a sponsorship.
+- The catalog contains 28 exact hosts, with category filters and search. Fifty custom sites are allowed independently of built-ins. Normalization appends new built-ins disabled, preserves existing selections and promotes custom entries matching a built-in hostname. Legacy lists at the old 50-total limit remain valid across reads and saves.
+- The landing-page carousel uses static markup generated from the central catalog during packaging. Two identical groups scroll left seamlessly; the second is hidden from assistive technology. Hover, keyboard focus and a Pause control stop motion. Reduced-motion users see one static, wrapping list. There are no separators between names.
 
 ## Verified built-in hosts (2026-09-27)
 
@@ -32,7 +34,7 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 | TradeSea | `app.tradesea.ai` | https://help.tradesea.ai/en/articles/13669445-what-is-tradesea |
 | TradingView | `www.tradingview.com` | https://www.tradingview.com/chart/ |
 
-TradingView is available to both new and existing installations through the centralized platform normalizer. It starts disabled until the user grants site access. An existing custom entry for the same hostname is upgraded to the built-in definition without changing its enabled state. Localized TradingView subdomains remain individually addable custom hosts.
+The remaining 24 approved hostnames and primary sources are in [PLATFORM_PROPOSAL.md](PLATFORM_PROPOSAL.md). ProjectX entries are excluded. Regional and broker-specific variants remain individually addable custom hosts. Public hostname verification and local browser fixtures do not establish authenticated platform compatibility; safe-account smoke tests remain release checks.
 
 Browser API references: https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts and https://developer.chrome.com/docs/extensions/reference/api/scripting.
 

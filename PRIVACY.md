@@ -28,7 +28,7 @@ Haki requests access to each exact HTTPS host you enable. The broad optional hos
 
 The optional new-tab feature displays your local rules. With that preference disabled, Haki redirects to Chrome's built-in New Tab page. Chrome's own services and network behavior are governed by Chrome's policies, not Haki.
 
-The example ad cards are clearly labeled design mockups with fictional sponsors. They are local text and CSS, with no real advertisers, ad network, external destination, profiling or tracking.
+The optional ad previews use local mock artwork and text for Tradeify and Lucid Trading and are labeled “Ad.” They do not imply a sponsorship. Their arrow links open the companies' websites only when clicked. Haki does not record these clicks or add tracking parameters; the destination sites operate under their own privacy policies. There is no advertising network, profiling, remote ad content or ad tracking in Haki.
 
 ## Your controls and retention
 

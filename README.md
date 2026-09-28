@@ -19,13 +19,13 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 ## What is included
 
 - First-run onboarding, 1–20 editable/reorderable rules (up to 200 characters each).
-- Verified built-ins: Tradovate, TopstepX, TradeSea and TradingView (`www.tradingview.com`). HTTPS custom websites with exact hostname matching.
+- 28 built-in browser platforms across futures, stocks and FX, with search and category filters. See the [approved catalog and hostname sources](PLATFORM_PROPOSAL.md). Up to 50 additional HTTPS custom websites with exact hostname matching.
 - An early blocking layer, isolated accessible checklist, live progress and a quiet success transition.
 - Every new/reloaded trading page, every 1/2/3/4/6/8/12 hours, or once per local calendar day.
 - Compact popup with protection status, rule/platform counts, management links, **Show Haki Now**, pause confirmation and five-second emergency access.
 - Settings, corrupt-data recovery, local backup before repair/reset and optional-permission cleanup on custom-site removal.
 - Optional new-tab ritual with your rules, inline editing and a local reflection checklist. It never suppresses the trading gate.
-- Two fictional example ad cards in the new tab's lower corners. Hidden by default; preview them from **Settings → New tab → Preview with example ads**, or the preview control on the new-tab page. No ad service, real sponsor link, tracking, or network request is involved.
+- Two local mock ad cards for Tradeify and Lucid Trading in the new tab's lower corners. Hidden by default; preview them from **Settings → New tab → Preview with example ads**, or the preview control on the new-tab page. Their arrow links open the companies' websites. No ad network, remote artwork or click tracking is included; the previews do not imply a sponsorship.
 
 ## Behavior to know
 
@@ -37,6 +37,7 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 - Bypass applies only to the current page and does not update global confirmation. Reloading can show Haki again. Hold with a primary pointer button or with Space/Enter; early release cancels.
 - Pause releases existing gates and unregisters the early script. Browser site-access controls and uninstall also remain available.
 - Only exact HTTPS hosts are protected. Add subdomains individually. HTTP, localhost, private/internal suffixes, IP literals and nonstandard URL ports are rejected.
+- New built-ins start disabled and require individual site access. Existing selections and rules survive catalog updates; matching custom entries become built-ins without losing their enabled state. Built-ins do not consume the 50-custom-site allowance. Protection covers every page on the enabled hostname, including any non-trading pages there.
 - This is a voluntary ritual, not a tamper-proof lock or order-management tool. It does not pause trading systems, cancel orders, or guarantee risk management.
 
 ## Optional new tab
@@ -67,6 +68,7 @@ Node 22+ and Python 3 are sufficient. No install command is needed.
 npm test                 # Core, storage and worker regression tests
 npm run check           # Manifest, syntax, assets and CSP checks
 npm run assets          # Regenerate checked-in gate CSS bundle and PNG icons
+npm run site:platforms  # Sync the landing-page carousel with the built-in catalog
 node tests/browser.test.mjs  # Isolated real Chrome integration, no brokerage connection
 npm run package         # Reproducible runtime-only ZIP and SHA-256
 node tests/site.test.mjs # Desktop/mobile landing page and actual download verification

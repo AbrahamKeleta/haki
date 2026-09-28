@@ -15,7 +15,7 @@ Haki helps traders follow their process by placing their own trading rules in fr
 Create your rules, choose your trading websites, and decide how often Haki should remind you. Every rule starts unchecked. Read, check, and continue with intention.
 
 • Write, edit and reorder up to 20 personal trading rules.
-• Protect Tradovate, TopstepX, TradeSea, TradingView, or your own HTTPS trading website.
+• Choose from 28 built-in browser platforms, including TradingView, Tradovate, TopstepX, Webull and OANDA, or add your own HTTPS trading website.
 • Choose every new trading tab, every few hours, or once per local day.
 • Bring your rules into each new tab with an optional calm reminder page and inline editing.
 • Stay in control with a pause option and intentional emergency access.
@@ -27,7 +27,7 @@ Just your rules, before you trade.
 
 Haki is a behavioral productivity tool for traders. It does not provide financial advice, trading signals, investment recommendations, or risk management guarantees. You remain responsible for your trading decisions.
 
-Haki registers a new-tab replacement. Its in-app setting is optional: when off, Haki opens Chrome's built-in New Tab page. Example advertisement cards are optional, clearly labeled local design previews; no advertising network or tracking is included.
+Haki registers a new-tab replacement. Its in-app setting is optional: when off, Haki opens Chrome's built-in New Tab page. Example advertisement cards are optional local design previews for Tradeify and Lucid Trading, with direct links to their websites. No sponsorship is implied; no advertising network or click tracking is included.
 
 ## Permission justifications
 
@@ -58,8 +58,8 @@ Haki is a local rules-reminder tool. No Haki account, payment or credentials are
 3. Open or reload `https://example.com`. The full-page Haki gate appears with all rules unchecked. Check every rule, then click **READY TO TRADE**; the page becomes usable after the confirmation animation. Reload to see a fresh gate.
 4. Open the extension popup on that page. **Show Haki Now** opens another gate. **Emergency Access** reveals a button that must be held continuously for five seconds. Pause requires a separate confirmation.
 5. In Settings, edit/reorder rules, toggle websites, and test interval/daily frequency. A confirmation in one site suppresses newly opened protected pages according to the chosen interval or local day; tab mode remains independent.
-6. TradingView is a built-in option for `www.tradingview.com`. Enable it, approve access, then open `https://www.tradingview.com/chart/`. Protection covers that exact hostname. Tradovate, TopstepX and TradeSea are also built in; each requires its own user-granted permission.
+6. Search the 28 built-ins or filter by Futures, Stocks & multi-asset, or FX & CFDs. TradingView uses `www.tradingview.com`: enable it, approve access, then open `https://www.tradingview.com/chart/`. Protection covers that exact hostname. Each platform requires its own user-granted permission; new catalog entries start disabled. Custom sites have a separate 50-site allowance.
 7. Enable the new-tab preference in Settings and open a new tab. Rules appear with inline editing. New-tab checkmarks do not confirm a platform gate. With the preference off, Chrome's built-in New Tab page opens.
-8. Optional example ads can be previewed from Settings. These are clearly labeled, fictional local design mockups, off by default, with no external links, network or tracking.
+8. Optional example ads can be previewed from Settings. These local mock cards for Tradeify and Lucid Trading are labeled “Ad” and off by default. Their arrows open the companies' websites, without Haki click tracking or an advertising network. No sponsorship is implied.
 
 The extension declares optional `https://*/*` so users can add arbitrary HTTPS websites, but never requests that pattern as a blanket grant. Runtime permissions are requested for each exact hostname only after the user selects it. No remote code is used.
