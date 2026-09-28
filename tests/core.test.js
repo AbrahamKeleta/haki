@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeHostname, protectedPlatform, originPattern } from '../shared/domains.js';
 import { shouldPrompt, localDate } from '../shared/utils.js';
-import { defaultState, BUILT_IN_PLATFORMS } from '../shared/constants.js';
+import { defaultState, BUILT_IN_PLATFORMS, MAX_CUSTOM_PLATFORMS, PLATFORM_CATEGORIES } from '../shared/constants.js';
 import { validateRules, validatePlatforms, validatePrompt, normalizeState } from '../shared/storage.js';
 
 test('normalizes HTTPS hostnames and paths without granting subdomains', () => {
@@ -58,7 +58,7 @@ test('existing installations gain TradingView without changing rules or enabled 
   assert.deepEqual(next.rules, previous.rules);
   assert.equal(next.platforms[0].enabled, true);
   assert.deepEqual(next.platforms.find(p => p.id === 'tradingview'), {
-    id: 'tradingview', name: 'TradingView', hostname: 'www.tradingview.com', builtIn: true, enabled: false,
+    id: 'tradingview', name: 'TradingView', hostname: 'www.tradingview.com', category: 'stocks', builtIn: true, enabled: false,
   });
 });
 test('an existing custom TradingView entry becomes built-in and keeps its permission preference', () => {
@@ -68,6 +68,51 @@ test('an existing custom TradingView entry becomes built-in and keeps its permis
   assert.equal(platforms.filter(p => p.hostname === 'www.tradingview.com').length, 1);
   assert.ok(protectedPlatform(platforms, 'https://www.tradingview.com/chart/'));
   assert.equal(protectedPlatform(platforms, 'https://www.tradingview.com.evil.com/chart/'), null);
+});
+test('approved catalog has unique exact hosts, known categories and no retired ProjectX entries', () => {
+  assert.equal(BUILT_IN_PLATFORMS.length, 28);
+  assert.equal(new Set(BUILT_IN_PLATFORMS.map(p => p.id)).size, BUILT_IN_PLATFORMS.length);
+  assert.equal(new Set(BUILT_IN_PLATFORMS.map(p => p.hostname)).size, BUILT_IN_PLATFORMS.length);
+  for (const platform of BUILT_IN_PLATFORMS) {
+    assert.equal(normalizeHostname(platform.hostname), platform.hostname);
+    assert.ok(PLATFORM_CATEGORIES.some(c => c.id === platform.category));
+    assert.equal(platform.hostname.endsWith('projectx.com'), false);
+    assert.notEqual(platform.hostname, 'x.e8markets.com');
+    assert.equal(protectedPlatform([{ ...platform, enabled: true }], `https://${platform.hostname}.evil.com/`), null);
+  }
+});
+test('catalog expansion preserves a full legacy site list across repeated reads and saves', () => {
+  const previous = defaultState();
+  previous.rules = [{ id: 'keep', text: 'Keep my rules', order: 0 }];
+  previous.platforms = previous.platforms.slice(0, 4).map(p => ({ ...p, enabled: true }));
+  previous.platforms.push(...Array.from({ length: 46 }, (_, i) => ({ hostname: `custom${i}.example.com`, enabled: i % 2 === 0 })));
+  assert.equal(previous.platforms.length, 50);
+  const next = normalizeState(previous);
+  assert.deepEqual(next.issues, []);
+  assert.deepEqual(next.rules, previous.rules);
+  assert.equal(next.platforms.filter(p => !p.builtIn).length, 46);
+  assert.deepEqual(next.platforms.filter(p => p.enabled).map(p => p.hostname), previous.platforms.filter(p => p.enabled).map(p => p.hostname));
+  assert.equal(next.platforms.length, BUILT_IN_PLATFORMS.length + 46);
+  assert.deepEqual(normalizeState(next), next);
+  assert.deepEqual(validatePlatforms(next.platforms), next.platforms);
+});
+test('newly built-in custom sites retain protection while unused additions stay disabled', () => {
+  const previous = [
+    { hostname: 'trade.oanda.com', id: 'custom-trade.oanda.com', enabled: true },
+    { hostname: 'app.webull.com', id: 'custom-app.webull.com', enabled: false },
+  ];
+  const result = validatePlatforms(previous);
+  assert.equal(result.find(p => p.id === 'oanda').enabled, true);
+  assert.equal(result.find(p => p.id === 'webull').enabled, false);
+  assert.equal(result.filter(p => p.enabled).length, 1);
+  assert.equal(result.length, BUILT_IN_PLATFORMS.length);
+});
+test('the custom website limit is independent of the built-in catalog and cannot be spoofed', () => {
+  const custom = Array.from({ length: MAX_CUSTOM_PLATFORMS }, (_, i) => ({ hostname: `custom${i}.example.com`, builtIn: true }));
+  const result = validatePlatforms(custom);
+  assert.equal(result.filter(p => !p.builtIn).length, MAX_CUSTOM_PLATFORMS);
+  assert.deepEqual(validatePlatforms(result), result);
+  assert.throws(() => validatePlatforms([...custom, { hostname: 'one-more.example.com' }]), /50 custom/);
 });
 test('corrupt settings return repair state while preserving usable text', () => {
   const state = normalizeState({ ...defaultState(), onboardingComplete: true, rules: [{ text: 'Keep this' }, { text: '' }] });

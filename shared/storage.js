@@ -1,4 +1,4 @@
-import { defaultState, BUILT_IN_PLATFORMS, SCHEMA_VERSION, MAX_RULES, MAX_RULE_LENGTH, MAX_PLATFORMS, INTERVAL_HOURS } from './constants.js';
+import { defaultState, BUILT_IN_PLATFORMS, SCHEMA_VERSION, MAX_RULES, MAX_RULE_LENGTH, MAX_PLATFORMS, MAX_CUSTOM_PLATFORMS, INTERVAL_HOURS } from './constants.js';
 import { normalizeHostname } from './domains.js';
 
 export function validateRules(rules) {
@@ -24,7 +24,7 @@ export function validatePrompt(settings) {
 }
 
 export function validatePlatforms(platforms) {
-  if (!Array.isArray(platforms) || platforms.length > MAX_PLATFORMS) throw new Error(`Use up to ${MAX_PLATFORMS} websites.`);
+  if (!Array.isArray(platforms) || platforms.length > MAX_PLATFORMS) throw new Error(`Use up to ${MAX_CUSTOM_PLATFORMS} custom websites alongside the built-in platforms.`);
   const hosts = new Set();
   const result = platforms.map(platform => {
     const hostname = normalizeHostname(platform.hostname);
@@ -36,6 +36,7 @@ export function validatePlatforms(platforms) {
       enabled: platform.enabled === true,
     };
   });
+  if (result.filter(p => !p.builtIn).length > MAX_CUSTOM_PLATFORMS) throw new Error(`Use up to ${MAX_CUSTOM_PLATFORMS} custom websites.`);
   for (const platform of BUILT_IN_PLATFORMS) {
     if (!hosts.has(platform.hostname)) result.push({ ...platform, enabled: false });
   }
