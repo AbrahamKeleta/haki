@@ -10,6 +10,8 @@
     "preview:newtab": "node scripts/preview-newtab.mjs",
     "store:assets": "node scripts/store-assets.mjs",
     "site:platforms": "node scripts/site-platforms.mjs --write",
-    "package": "node scripts/site-platforms.mjs --write && python3 scripts/package.py"
+    "package": "node scripts/site-platforms.mjs --write && python3 scripts/package.py",
+    "site:social": "node scripts/social-preview.mjs",
+    "check:download": "python3 scripts/package.py --check"
   }
 }
