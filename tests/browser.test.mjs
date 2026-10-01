@@ -137,6 +137,8 @@ try {
     assert.equal(await trading.evaluate(`${gate}.querySelectorAll('[aria-checked=true]').length`), 0);
     assert.equal(await trading.evaluate(`${gate}.querySelector('[data-action=confirm]').disabled`), true);
     assert.equal(await trading.evaluate(`${gate}.querySelector('dialog').matches(':modal')`), true);
+    assert.equal(await trading.evaluate(`${gate}.querySelector('#haki-title').textContent`), 'BEFORE YOU TRADE');
+    assert.equal(await trading.evaluate(`${gate}.activeElement === ${gate}.querySelector('.rule')`), true, 'The first rule receives focus in the mounted modal');
     await run.screenshot(trading, 'gate');
   });
   await check('modal blocks page clicks, shortcuts, Escape and focus escape', async () => {
@@ -220,6 +222,8 @@ try {
     const page = await configuredPage();
     await until(() => page.evaluate(`${gate}?.querySelector('[data-action=emergency]') !== null && !!${gate}`));
     assert.match(await page.evaluate(`${gate}.textContent`), /couldn’t load/);
+    assert.equal(await page.evaluate(`${gate}.querySelector('dialog').matches(':modal')`), true);
+    assert.equal(await page.evaluate(`${gate}.activeElement?.dataset.action`), 'settings', 'The repair modal focuses its settings button');
     await message('SAVE_RULES', { rules: [{ id: 'one', text: 'Accept the risk before entering' }] });
     assert.equal(await worker.evaluate('chrome.storage.local.get("recoveryBackup").then(value => value.recoveryBackup.data.rules[0].id)'), 'broken');
     await page.send('Page.reload'); await waitGate(page); await finishGate(page);

@@ -36,6 +36,7 @@
     dialog = node('dialog'); dialog.setAttribute('aria-modal', 'true'); dialog.setAttribute('aria-labelledby', 'haki-title'); dialog.tabIndex = -1;
     dialog.addEventListener('cancel', event => event.preventDefault());
     card = node('section', 'ritual');
+    const title = node('h1', '', 'BEFORE YOU TRADE'); title.id = 'haki-title';
     card.append(brand(), title, node('p', 'intro', 'Loading your rules…'));
     dialog.append(card); shadow.append(style, dialog);
     // Manual insertion on an already-open page may not have registered preflight CSS.
@@ -118,7 +119,7 @@
     card.replaceChildren(brand(), node('p', 'eyebrow', 'LET’S GET YOU BACK ON TRACK'), title,
       node('p', 'intro', 'Open settings to repair your rules, or hold below for emergency access.'),
       button('OPEN SETTINGS', 'settings', 'primary'), button('Hold 5 seconds for Emergency Access', 'emergency'));
-    focusable()[0].focus();
+    (focusable()[0] || dialog).focus();
   }
   function renderRules(nextRules) {
     mount(); clearTimeout(watchdog); cancelHold(); generation++; busy = false;
@@ -138,7 +139,7 @@
     const track = node('div', 'track'); track.setAttribute('aria-hidden', 'true'); fill = node('div', 'fill'); track.append(fill);
     ready = button('READY TO TRADE', 'confirm', 'primary'); ready.disabled = true;
     card.replaceChildren(brand(), node('p', 'eyebrow', 'WILLPOWER BEFORE EXECUTION'), title, intro, list, progress, track, ready, node('p', 'footer', 'Process over impulse.'));
-    focusable()[0].focus();
+    (focusable()[0] || dialog).focus();
   }
   async function activate(control) {
     if (control.disabled || busy) return;
