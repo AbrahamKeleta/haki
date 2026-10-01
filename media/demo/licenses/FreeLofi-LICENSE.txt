@@ -1,0 +1,145 @@
+================================================================================
+                    PURRPLE CAT USAGE LICENSE — VERSION 1.1
+                          Effective: May 20, 2026
+================================================================================
+
+Purrple Cat grants you a license to use musical works from the FreeLofi catalog
+("the Music") under the terms below. This license is intended to serve as
+evidence of permission if you receive a false or automated copyright claim on
+YouTube, Twitch, Kick, TikTok, Instagram, Spotify, or similar platforms.
+
+--------------------------------------------------------------------------------
+1. GRANT OF LICENSE
+--------------------------------------------------------------------------------
+
+Purrple Cat grants you ("Licensee") a worldwide, perpetual, royalty-free,
+non-exclusive license to:
+
+(a) Stream, download, and store the Music for personal use.
+
+(b) Synchronize the Music with any audiovisual content, including but not
+    limited to: videos, livestreams, short-form content, podcasts, animations,
+    games, films, advertisements, and presentations.
+
+(c) Distribute, monetize, and publicly perform that audiovisual content on any
+    platform or medium.
+
+(d) Use the Music in both personal and commercial projects, including client work.
+
+No payment, attribution, registration, or notification is required to use this
+license.
+
+--------------------------------------------------------------------------------
+2. RESTRICTIONS
+--------------------------------------------------------------------------------
+
+You may NOT:
+
+(a) Re-upload the Music as standalone audio on any streaming platform
+    (Spotify, Apple Music, YouTube Music, Bandcamp, Amazon Music, etc.).
+
+(b) Claim authorship of the Music or register it with any Content ID system
+    (YouTube Content ID, Facebook Rights Manager, TikTok, etc.), PRO
+    (BMI, ASCAP, etc.), or automated rights enforcement system.
+
+(c) Use the Music as training data for machine learning or generative AI models
+    without prior written permission from Purrple Cat.
+
+(d) Use the Music in any project that promotes hate, harassment, illegal
+    activity, or defamation.
+
+(e) Sublicense the Music. Any third party must obtain their own license.
+
+--------------------------------------------------------------------------------
+3. ATTRIBUTION
+--------------------------------------------------------------------------------
+
+Attribution is optional but appreciated. Suggested credit line:
+
+    Music by Purrple Cat
+
+--------------------------------------------------------------------------------
+4. DEFENDING AGAINST FALSE COPYRIGHT CLAIMS
+--------------------------------------------------------------------------------
+
+If your content receives an automated claim referencing a track from the
+FreeLofi catalog, follow these steps:
+
+1. Identify the exact track title being claimed.
+
+2. In the platform's dispute form, select that you have a license or written
+   permission from the copyright owner.
+
+3. Paste the following text into the explanation field (replace [TRACK TITLE]):
+
+   ----------------------------------------------------------------------------
+   I have a valid license to use this music. The track "[TRACK TITLE]" by
+   Purrple Cat is part of the FreeLofi catalog and is distributed under the
+   Purrple Cat Usage License v1.1.
+
+   This license grants permission to synchronize the music with audiovisual
+   content and to monetize that content. Purrple Cat does not register FreeLofi
+   tracks with any Content ID system. Any claim made through such systems is
+   unauthorized under section 2(b) and section 5 of the license.
+
+   License: https://freelofi.com/license
+   ----------------------------------------------------------------------------
+
+4. If the platform allows file uploads, attach a copy of this LICENSE.txt file
+   as supporting evidence.
+
+5. If the claim is not resolved within the platform's standard review period,
+   contact Purrple Cat at meow@purrplecat.com with:
+   - A screenshot of the claim
+   - Your content URL
+   - The name of the claimant (if available)
+
+--------------------------------------------------------------------------------
+5. CONTENT ID / RIGHTS MANAGEMENT
+--------------------------------------------------------------------------------
+
+Purrple Cat represents and warrants that:
+
+- No tracks in the FreeLofi catalog are registered with YouTube Content ID,
+  Facebook Rights Manager, TikTok's rights system, or any equivalent automated
+  Content ID or rights enforcement system.
+
+- No third party has been authorized to register, claim, or enforce rights over
+  these tracks through automated systems.
+
+Any claim submitted through such systems is unauthorized and may be disputed
+using the process in Section 4.
+
+--------------------------------------------------------------------------------
+6. DISCLAIMER OF WARRANTY & LIMITATION OF LIABILITY
+--------------------------------------------------------------------------------
+
+THE MUSIC IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
+PARTICULAR PURPOSE.
+
+Purrple Cat's total liability under this license shall not exceed the amount
+paid for the Music, which is $0.
+
+--------------------------------------------------------------------------------
+7. TERM AND VERSIONING
+--------------------------------------------------------------------------------
+
+This license is perpetual for any Music downloaded while this version is in
+effect. Newer versions of this license (if released) apply only to Music
+downloaded after the new version's effective date.
+
+You are encouraged to keep a copy of this license with your project files.
+
+--------------------------------------------------------------------------------
+8. CONTACT
+--------------------------------------------------------------------------------
+
+For questions or assistance with a copyright claim:
+
+    Email:    meow@purrplecat.com
+    X/Twitter: @purrplecat
+
+================================================================================
+END OF LICENSE
+================================================================================

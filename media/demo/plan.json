@@ -1,0 +1,19 @@
+{
+  "title": "Haki — Your rules before you trade",
+  "voice": "en-US-JennyNeural",
+  "fps": 30,
+  "scenes": [
+    {"id":"intro","title":["Your rules.","Before your emotions."],"label":"MEET HAKI","min_duration":4.6,"speech":"Your rules. Before your emotions. Meet Haki."},
+    {"id":"welcome","title":["Start with your plan."],"label":"01 / GET STARTED","min_duration":4.0,"speech":"After installing Haki, select Get Started."},
+    {"id":"rules","title":["Make the rules yours."],"label":"02 / YOUR RULES","min_duration":6.4,"speech":"Make these rules your own. Edit a rule, or add another. Then continue."},
+    {"id":"platform","title":["Protect your platform."],"label":"03 / YOUR PLATFORM","min_duration":7.0,"speech":"Find your trading platform and turn protection on. Allow site access when your browser asks."},
+    {"id":"frequency","title":["Choose your rhythm."],"label":"04 / YOUR REMINDER","min_duration":5.6,"speech":"Choose how often Haki appears. Here, we're using every new trading tab."},
+    {"id":"ready","title":["Keep your rules close."],"label":"05 / FINISH SETUP","min_duration":6.0,"speech":"Want your rules on every new tab? Turn this on, then finish setup."},
+    {"id":"gate","title":["Pause. Read. Confirm."],"label":"06 / BEFORE YOU TRADE","min_duration":10.0,"speech":"Open your trading platform. Haki brings up your rules. Read and check each one, then select Ready to Trade."},
+    {"id":"success","title":["Your checklist. Done."],"label":"READY FOR YOUR SESSION","min_duration":4.5,"speech":"Confirmed. Now you're back to your trading workspace."},
+    {"id":"newtab","title":["A calmer new tab."],"label":"YOUR DAILY REMINDER","min_duration":5.0,"speech":"And your new tab keeps those same rules within reach."},
+    {"id":"end","title":["Powered by","joinmirra.app"],"label":"MIRRA","min_duration":6.8,"speech":"Powered by join Mirra dot app. Copy trade your prop firm accounts!"}
+  ],
+  "music": {"title":"Happy Trails","artist":"Purrple Cat","source":"https://freelofi.com/track/happy-trails","license":"https://freelofi.com/license","file":"happy-trails-purrple-cat.mp3"},
+  "capture_note":"Actual Haki UI in a disposable browser profile. Sample rules and simulated trading workspace; no live brokerage connection. Browser site permission is pre-granted in this profile. Permission advice is narrated."
+}

@@ -1,0 +1,19 @@
+{
+  "resolution": [1080, 1920],
+  "aspect_ratio": "9:16",
+  "frame_rate": 30,
+  "decoded_frames": 2003,
+  "duration_seconds": 66.766667,
+  "video_codec": "H.264 High, yuv420p",
+  "audio_codec": "AAC LC, 48000 Hz, stereo",
+  "file_bytes": 4403020,
+  "integrated_loudness_lufs": -16.25,
+  "true_peak_dbtp": -1.45,
+  "loudness_range_lu": 5.30,
+  "full_audio_video_decode": "passed without errors",
+  "subtitle_cues": 29,
+  "subtitle_timing_check": "passed; positive durations and no overlaps",
+  "visual_checks": "storyboard plus frames extracted from the final MP4: rule editing, gate completion, real confirmation, and MIRRA closing card",
+  "capture_uncaught_errors": [],
+  "source_extension_commit": "5efa95ed7dc6bebb2fe096abe1ac975c3d8ef69d"
+}

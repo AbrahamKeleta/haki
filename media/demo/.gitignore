@@ -1,0 +1,8 @@
+audio/
+captures/
+captures-portrait/
+__pycache__/
+export/mix.wav
+export/silent.mp4
+export/storyboard.jpg
+contact*.png

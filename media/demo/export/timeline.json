@@ -1,0 +1,68 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 66.76666666666667,
+  "scenes": [
+    {
+      "id": "intro",
+      "start": 0,
+      "duration": 6.566666666666666,
+      "speech": "Your rules. Before your emotions. Meet Haki."
+    },
+    {
+      "id": "welcome",
+      "start": 6.566666666666666,
+      "duration": 4.5,
+      "speech": "After installing Haki, select Get Started."
+    },
+    {
+      "id": "rules",
+      "start": 11.066666666666666,
+      "duration": 7.666666666666667,
+      "speech": "Make these rules your own. Edit a rule, or add another. Then continue."
+    },
+    {
+      "id": "platform",
+      "start": 18.733333333333334,
+      "duration": 7.633333333333334,
+      "speech": "Find your trading platform and turn protection on. Allow site access when your browser asks."
+    },
+    {
+      "id": "frequency",
+      "start": 26.366666666666667,
+      "duration": 6.866666666666666,
+      "speech": "Choose how often Haki appears. Here, we're using every new trading tab."
+    },
+    {
+      "id": "ready",
+      "start": 33.233333333333334,
+      "duration": 6.233333333333333,
+      "speech": "Want your rules on every new tab? Turn this on, then finish setup."
+    },
+    {
+      "id": "gate",
+      "start": 39.46666666666667,
+      "duration": 10.0,
+      "speech": "Open your trading platform. Haki brings up your rules. Read and check each one, then select Ready to Trade."
+    },
+    {
+      "id": "success",
+      "start": 49.46666666666667,
+      "duration": 5.5,
+      "speech": "Confirmed. Now you're back to your trading workspace."
+    },
+    {
+      "id": "newtab",
+      "start": 54.96666666666667,
+      "duration": 5.0,
+      "speech": "And your new tab keeps those same rules within reach."
+    },
+    {
+      "id": "end",
+      "start": 59.96666666666667,
+      "duration": 6.8,
+      "speech": "Powered by join Mirra dot app. Copy trade your prop firm accounts!"
+    }
+  ]
+}
