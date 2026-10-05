@@ -1,7 +1,6 @@
 body { width: 360px; min-height: 490px; background: radial-gradient(ellipse at 90% 0, #07335b55, transparent 55%), var(--haki-bg); }
 header { padding: 26px 24px 22px; display: flex; justify-content: space-between; align-items: center; }
-.brand { font-size: 17px; gap: 8px; }
-.brand img { width: 25px; height: 25px; }
+.brand { font-size: 24px; }
 .edition { color: #8099b3; font-size: 7px; letter-spacing: .08em; max-width: 72px; line-height: 1.8; text-align: right; }
 main { padding: 0 24px; }
 .protection { display: flex; justify-content: space-between; align-items: center; border: 1px solid #1a3b55; background: #0a1c2f; border-radius: 11px; padding: 15px; }

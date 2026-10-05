@@ -23,8 +23,8 @@ h1 { font-weight: 500; font-size: 32px; line-height: 1.2; letter-spacing: -.02em
 h2 { font-size: 20px; font-weight: 500; }
 small, .muted { color: var(--haki-text-muted); }
 .eyebrow { color: var(--haki-accent-secondary); font-size: 10px; letter-spacing: .22em; font-weight: 650; }
-.brand { color: var(--haki-text); display: inline-flex; align-items: center; gap: 13px; font-size: 19px; font-weight: 700; letter-spacing: .32em; }
-.brand img { width: 32px; height: 32px; }
+.brand { color: var(--haki-text); display: inline-flex; align-items: baseline; gap: .02em; font-size: 24px; line-height: 1; font-weight: 700; letter-spacing: -.035em; }
+.brand-mark { display: inline-block; flex: none; width: .8064em; height: .72em; background: #39baff; clip-path: polygon(10.71% 0, 31.44% 0, 27.14% 40.18%, 74.97% 40.18%, 79.27% 0, 100% 0, 89.29% 100%, 68.56% 100%, 72.86% 59.82%, 25.03% 59.82%, 20.73% 100%, 0 100%); }
 .primary, .secondary, .text-button { padding: 13px 20px; border-radius: var(--haki-radius-sm); font-size: 12px; font-weight: 650; letter-spacing: .08em; }
 .primary { color: #001322; background: var(--haki-accent); border: 1px solid #48b8ff; transition: background 160ms, box-shadow 160ms; }
 .primary:hover:not(:disabled) { background: #51bbff; box-shadow: 0 0 24px #159bff20; }

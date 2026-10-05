@@ -22,8 +22,8 @@ dialog {
 dialog::backdrop { background: #040b13; }
 dialog.leaving { opacity: 0; }
 .ritual { width: min(100%, 520px); margin: auto; padding: 20px 0; text-align: center; }
-.wordmark { display: flex; align-items: center; justify-content: center; gap: 13px; letter-spacing: .38em; font-size: 17px; font-weight: 700; }
-.mark { color: var(--haki-accent-secondary); font-size: 23px; font-weight: 800; letter-spacing: -.1em; transform: skew(-10deg); }
+.wordmark { display: flex; align-items: baseline; justify-content: center; gap: .02em; letter-spacing: -.035em; font-size: 24px; line-height: 1; font-weight: 700; }
+.mark { display: inline-block; flex: none; width: .8064em; height: .72em; background: #39baff; clip-path: polygon(10.71% 0, 31.44% 0, 27.14% 40.18%, 74.97% 40.18%, 79.27% 0, 100% 0, 89.29% 100%, 68.56% 100%, 72.86% 59.82%, 25.03% 59.82%, 20.73% 100%, 0 100%); }
 .eyebrow { font-size: 10px; color: var(--haki-accent-secondary); letter-spacing: .28em; margin: 36px 0 12px; font-weight: 600; }
 h1 { font-size: clamp(27px, 5vw, 36px); letter-spacing: .06em; font-weight: 500; margin: 0 0 14px; line-height: 1.2; }
 .intro { color: var(--haki-text-muted); margin: 0 0 28px; font-size: 15px; }

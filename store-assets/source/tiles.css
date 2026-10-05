@@ -4,16 +4,15 @@ body { position: relative; overflow: hidden; background: #040b13; color: #eef5ff
 .grid { position: absolute; inset: 0; background-image: linear-gradient(#16375224 1px, transparent 1px), linear-gradient(90deg, #16375224 1px, transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(110deg, transparent, #000); }
 .orbit { position: absolute; border: 1px solid #19507a45; border-radius: 50%; pointer-events: none; }
 main { position: relative; z-index: 2; }
-.brand { display: flex; align-items: center; font-weight: 650; letter-spacing: .32em; }
-.brand img { display: block; flex: none; }
+.brand { display: flex; align-items: baseline; gap: .02em; line-height: 1; font-weight: 700; letter-spacing: -.035em; }
+.brand-mark { display: inline-block; flex: none; width: .8064em; height: .72em; background: #39baff; clip-path: polygon(10.71% 0, 31.44% 0, 27.14% 40.18%, 74.97% 40.18%, 79.27% 0, 100% 0, 89.29% 100%, 68.56% 100%, 72.86% 59.82%, 25.03% 59.82%, 20.73% 100%, 0 100%); }
 h1 { margin: 0; font-weight: 500; letter-spacing: -.045em; }
 p { color: #98b0c8; }
 .check { display: grid; place-items: center; flex: none; border: 1px solid #39baff; border-radius: 50%; background: #0b283d; color: #65cdff; }
 .check.empty { border-color: #35566f; background: #081725; }
 .small { width: 440px; height: 280px; background-image: radial-gradient(ellipse at 95% 85%, #064f7838, transparent 65%); }
 .small main { padding: 26px 32px; }
-.small .brand { gap: 8px; margin-left: -7px; font-size: 16px; }
-.small .brand img { width: 34px; height: 34px; }
+.small .brand { font-size: 24px; }
 .small h1 { margin-top: 17px; font-size: 36px; line-height: 1.12; }
 .small .ritual-line { display: flex; align-items: center; gap: 8px; width: 132px; margin-top: 24px; }
 .small .check { width: 22px; height: 22px; font-size: 12px; }
@@ -23,8 +22,7 @@ p { color: #98b0c8; }
 .small .orbit-two { width: 460px; height: 460px; left: 172px; top: 6px; }
 .marquee { width: 1400px; height: 560px; background-image: radial-gradient(ellipse at 85% 50%, #07538436, transparent 56%); }
 .marquee main { padding: 43px 82px; }
-.marquee .brand { gap: 12px; margin-left: -8px; font-size: 22px; }
-.marquee .brand img { width: 48px; height: 48px; }
+.marquee .brand { font-size: 32px; }
 .marquee h1 { margin-top: 37px; font-size: 76px; line-height: 1.04; }
 .marquee h1 em { font-style: normal; color: #43b8ff; }
 .marquee p { margin: 30px 0 0; font-size: 18px; letter-spacing: .01em; }

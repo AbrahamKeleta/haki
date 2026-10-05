@@ -19,9 +19,9 @@
     return el;
   }
   function brand() {
-    const mark = node('div', 'wordmark');
-    const symbol = node('span', 'mark', 'H'); symbol.setAttribute('aria-hidden', 'true');
-    mark.append(symbol, document.createTextNode('HAKI'));
+    const mark = node('div', 'wordmark'); mark.setAttribute('role', 'img'); mark.setAttribute('aria-label', 'Haki');
+    const symbol = node('span', 'mark'); symbol.setAttribute('aria-hidden', 'true');
+    mark.append(symbol, document.createTextNode('aki'));
     return mark;
   }
   function mount() {

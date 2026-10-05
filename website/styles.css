@@ -8,8 +8,8 @@ button { font: inherit; cursor: pointer; }
 h1, h2, h3, p, figure { margin: 0; }
 .wrap { width: min(1160px, calc(100% - 80px)); margin-inline: auto; }
 .site-header { display: flex; align-items: center; justify-content: space-between; padding-block: 30px; }
-.brand { display: inline-flex; align-items: center; gap: 11px; font-size: 17px; letter-spacing: .3em; font-weight: 700; }
-.brand img { object-fit: contain; }
+.brand { display: inline-flex; align-items: baseline; gap: .02em; font-size: 24px; line-height: 1; letter-spacing: -.035em; font-weight: 700; }
+.brand-mark { display: inline-block; flex: none; width: .8064em; height: .72em; background: #39baff; clip-path: polygon(10.71% 0, 31.44% 0, 27.14% 40.18%, 74.97% 40.18%, 79.27% 0, 100% 0, 89.29% 100%, 68.56% 100%, 72.86% 59.82%, 25.03% 59.82%, 20.73% 100%, 0 100%); }
 .site-header nav { display: flex; align-items: center; gap: 30px; font-size: 11px; color: #b4c7da; }
 .nav-download { border: 1px solid #315574; padding: 10px 17px; border-radius: 7px; font-size: 9px; letter-spacing: .08em; }
 .nav-download span { margin-left: 12px; }
@@ -31,8 +31,7 @@ h1 span { color: #44b4ff; }
 .window-dots { color: #2c4b66; letter-spacing: 3px; font-size: 9px; }
 .preview-lock { font-size: 13px; }
 .ritual-body { padding: 31px 30px 23px; text-align: center; background: radial-gradient(ellipse at top, #10396122, transparent 65%); }
-.mini-brand { letter-spacing: .32em; font-size: 13px; font-weight: 700; }
-.mini-brand span { color: #46befe; font-style: italic; letter-spacing: 0; font-size: 18px; margin-right: 6px; }
+.mini-brand { display: flex; align-items: baseline; justify-content: center; gap: .02em; letter-spacing: -.035em; font-size: 20px; line-height: 1; font-weight: 700; }
 .ritual-body .eyebrow { margin: 23px 0 10px; font-size: 7px; }
 .ritual-body h2 { font-size: 24px; font-weight: 500; letter-spacing: .04em; }
 .preview-intro { font-size: 11px; color: #8eabc4; margin: 11px 0 22px; }

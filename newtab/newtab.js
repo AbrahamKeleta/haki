@@ -20,8 +20,8 @@ function status(message, error = false) {
   $('#status').hidden = !message;
 }
 function brand() {
-  const mark = element('div', { className: 'wordmark' });
-  mark.append(element('span', { className: 'mark', 'aria-hidden': 'true' }, 'H'), document.createTextNode('HAKI'));
+  const mark = element('div', { className: 'wordmark', role: 'img', 'aria-label': 'Haki' });
+  mark.append(element('span', { className: 'mark', 'aria-hidden': 'true' }), document.createTextNode('aki'));
   return mark;
 }
 async function openNativeTab() {
