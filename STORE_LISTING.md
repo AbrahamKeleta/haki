@@ -16,7 +16,7 @@ MAKE IT YOUR PROCESS
 • Create, edit and reorder up to 20 personal rules.
 • Choose from 28 built-in browser platforms or add your own HTTPS trading websites.
 • See your checklist on every new trading page, every few hours, or once per local calendar day.
-• Bring your rules into an optional new-tab page, with quick inline editing.
+• Bring the same rule checklist, progress bar and confirmation ritual into an optional new-tab page.
 • Stay in control with pause and intentional emergency access.
 
 PRIVATE AND SIMPLE
@@ -35,7 +35,7 @@ Haki is a behavioral productivity tool. It does not provide financial advice, tr
 - **storage:** Store only local rules, chosen sites, preferences, confirmation dates and a recovery copy.
 - **scripting:** Persist exact-site content scripts at document start so interaction is blocked before the trading page appears; show manually requested gates and recover from a broken gate.
 - **Optional HTTPS host access:** The user may choose any public HTTPS trading website. Request each exact host individually in response to the user's enable/add action. Built-ins also require opt-in access. No blanket request or subdomain wildcard grant.
-- **New-tab override:** Show the user's rules and inline rule editing when they opt in, otherwise open Chrome's built-in new-tab page.
+- **New-tab override:** Show the user's rule checklist when they opt in, then open Chrome's built-in new-tab page after confirmation. Otherwise open Chrome's built-in new-tab page immediately.
 - **Remote code:** None. All runtime JS/CSS/assets are in the uploaded ZIP.
 - **User data:** No developer-side collection, transmission, sale, analytics or ad tracking. Review the actual privacy disclosure questionnaire against PRIVACY.md when submitting.
 
@@ -60,6 +60,6 @@ Haki is a local rules-reminder tool. No Haki account, payment or credentials are
 4. Open the extension popup on that page. **Show Haki Now** opens another gate. **Emergency Access** reveals a button that must be held continuously for five seconds. Pause requires a separate confirmation.
 5. In Settings, edit/reorder rules, toggle websites, and test interval/daily frequency. A confirmation in one site suppresses newly opened protected pages according to the chosen interval or local day; tab mode remains independent.
 6. Search the 28 built-ins or filter by Futures, Stocks & multi-asset, or FX & CFDs. TradingView uses `www.tradingview.com`: enable it, approve access, then open `https://www.tradingview.com/chart/`. Protection covers that exact hostname. Each platform requires its own user-granted permission; new catalog entries start disabled. Custom sites have a separate 50-site allowance.
-7. Enable the new-tab preference in Settings and open a new tab. Rules appear with inline editing. New-tab checkmarks do not confirm a platform gate. With the preference off, Chrome's built-in New Tab page opens.
+7. Enable the new-tab preference in Settings and open a new tab. The same checklist and progress bar as the protected-site gate appear. Check all rules and select READY TO TRADE to see the confirmation animation and continue to Chrome's built-in New Tab page. New-tab confirmation does not confirm a platform gate. Edit rules in Settings. With the preference off, Chrome's built-in New Tab page opens immediately.
 
 The extension declares optional `https://*/*` so users can add arbitrary HTTPS websites, but never requests that pattern as a blanket grant. Runtime permissions are requested for each exact hostname only after the user selects it. No remote code is used.

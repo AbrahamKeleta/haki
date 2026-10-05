@@ -237,12 +237,33 @@ try {
     await finishGate(page);
     await message('SAVE_RULES', { rules: [{ id: 'a', text: 'Only trade my setup' }, { id: 'b', text: 'Never move my stop' }, { id: 'c', text: 'Never add to a losing trade' }, { id: 'd', text: 'Accept the risk before entering' }] });
   });
-  await check('new tab reflects rules, edits inline, and keeps reflection separate from gate confirmation', async () => {
+  await check('new tab matches the protected gate and keeps confirmation separate', async () => {
     const before = (await message('GET_STATE')).state.confirmation;
     await ui.evaluate('chrome.storage.local.set({newTabSettings:{enabled:true,showExampleAds:true}})');
     const page = watch(await run.open(`${origin()}/newtab/newtab.html?preview=1&ads=1`));
-    await until(() => page.evaluate('document.querySelectorAll(".reminder").length === 4'));
+    const root = 'document.querySelector("#app")?.shadowRoot';
+    const control = selector => `${root}.querySelector(${JSON.stringify(selector)})`;
+    await until(() => page.evaluate(`${root}?.querySelectorAll(".rule").length === 4`));
     assert.equal(await page.evaluate(`${dom('.example-ad, #ads-toggle, a[href^="https://"]')} === null`), true);
+    assert.equal(await page.evaluate(`${control('[data-action=confirm]')}.disabled`), true);
+    assert.equal(await page.evaluate(`${control('.progress')}.textContent`), '0 / 4 CONFIRMED');
+
+    const protectedPage = await configuredPage(); await waitGate(protectedPage);
+    for (const target of [page, protectedPage]) await target.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
+    const appearance = root => `(() => {
+      const root = ${root};
+      return ['dialog', '.ritual', '.wordmark', '.mark', '.eyebrow', 'h1', '.intro', '.rules', '.rule', '.circle', '.progress', '.track', '.primary', '.footer'].map(selector => {
+        const el = root.querySelector(selector), css = getComputedStyle(el), rect = el.getBoundingClientRect();
+        return { selector, box: [rect.x, rect.y, rect.width, rect.height], styles: Object.fromEntries(
+          ['color', 'backgroundColor', 'backgroundImage', 'backgroundSize', 'fontFamily', 'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing', 'padding', 'margin', 'border', 'borderRadius', 'opacity'].map(key => [key, css[key]])
+        ) };
+      });
+    })()`;
+    await until(() => page.evaluate(`getComputedStyle(${control('.ritual')}).width === '520px'`));
+    assert.deepEqual(await page.evaluate(appearance(root)), await protectedPage.evaluate(appearance(gate)), 'New-tab layout and styles exactly match the protected URL gate');
+    await run.screenshot(page, 'newtab-clean');
+    await run.screenshot(protectedPage, 'newtab-reference-gate');
+
     const settings = watch(await run.open(`${origin()}/options/options.html#newtab`));
     await until(() => settings.evaluate('!document.querySelector("#newtab").hidden'));
     assert.equal(await settings.evaluate(`${dom('#example-ads, a[href*="ads=1"]')} === null`), true);
@@ -250,19 +271,49 @@ try {
     await until(async () => (await message('GET_STATE')).state.newTabSettings.enabled === false);
     await click(settings, dom('#newtab-enabled'));
     await until(async () => (await message('GET_STATE')).state.newTabSettings.enabled === true);
-    for (let i = 0; i < 4; i++) await click(page, `document.querySelectorAll('.reminder')[${i}]`);
+
+    await page.evaluate(`${control('.rule')}.focus()`);
+    await key(page, ' ', 'Space');
+    assert.equal(await page.evaluate(`${control('.progress')}.textContent`), '1 / 4 CONFIRMED');
+    assert.equal(await page.evaluate(`${control('.fill')}.style.width`), '25%');
+    await key(page, 'Enter');
+    assert.equal(await page.evaluate(`${control('.progress')}.textContent`), '0 / 4 CONFIRMED');
+    for (let i = 0; i < 4; i++) await click(page, `${root}.querySelectorAll('.rule')[${i}]`);
+    assert.equal(await page.evaluate(`${control('[data-action=confirm]')}.disabled`), false);
+    await click(page, control('.rule'));
+    assert.equal(await page.evaluate(`${control('[data-action=confirm]')}.disabled`), true);
+    await click(page, control('.rule'));
     assert.deepEqual((await message('GET_STATE')).state.confirmation, before);
-    await click(page, dom('#edit'));
-    await page.evaluate(`const field=document.querySelector('#editor input');field.value='Trade with a clear mind';field.dispatchEvent(new Event('input',{bubbles:true}));`);
-    await click(page, dom('#save-edit'));
-    await until(() => page.evaluate('document.querySelector(".reminder-text").textContent === "Trade with a clear mind"'));
-    assert.equal((await message('GET_STATE')).state.rules[0].text, 'Trade with a clear mind');
-    await run.screenshot(page, 'newtab-clean');
+
+    // Settings edits must replace the checklist and require fresh acknowledgements.
+    const rules = (await message('GET_STATE')).state.rules;
+    rules[0].text = 'Trade with a clear mind';
+    await message('SAVE_RULES', { rules });
+    await until(() => page.evaluate(`${control('.rule-text')}.textContent === "Trade with a clear mind"`));
+    assert.equal(await page.evaluate(`${control('.progress')}.textContent`), '0 / 4 CONFIRMED');
+    assert.equal(await page.evaluate(`${control('[data-action=confirm]')}.disabled`), true);
     await page.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
-    assert.equal(await page.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
+    assert.equal(await page.evaluate(`${control('dialog')}.scrollWidth <= innerWidth`), true);
     await run.screenshot(page, 'newtab-mobile');
-    const real = await run.open('chrome://newtab/');
-    await until(() => real.evaluate('document.querySelectorAll(".reminder").length === 4'));
+    await page.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+    assert.equal(await page.evaluate(`getComputedStyle(${control('.rule')}).transitionDuration`), '0s');
+    for (let i = 0; i < 4; i++) await click(page, `${root}.querySelectorAll('.rule')[${i}]`);
+    await click(page, control('[data-action=confirm]'));
+    assert.equal(await page.evaluate(`${control('h1')}.textContent`), 'HAKI CONFIRMED.');
+    await run.screenshot(page, 'newtab-success');
+    await until(() => page.evaluate('location.href === "chrome://new-tab-page/"'));
+    assert.deepEqual((await message('GET_STATE')).state.confirmation, before, 'Finishing a new tab never confirms a protected URL');
+    const real = watch(await run.open('chrome://newtab/'));
+    await until(() => real.evaluate(`${root}?.querySelectorAll(".rule").length === 4`));
+    assert.equal(await real.evaluate(`${control('.progress')}.textContent`), '0 / 4 CONFIRMED');
+  });
+  await check('standalone new-tab preview uses the same interactive checklist', async () => {
+    await import('../scripts/preview-newtab.mjs');
+    const page = watch(await run.open(new URL('../dist/newtab-preview.html', import.meta.url).href));
+    const root = 'document.querySelector("#app")?.shadowRoot';
+    await until(() => page.evaluate(`${root}?.querySelectorAll('.rule').length === 4`));
+    await click(page, `${root}.querySelector('.rule')`);
+    assert.equal(await page.evaluate(`${root}.querySelector('.progress').textContent`), '1 / 4 CONFIRMED');
   });
   await check('popup renders status and pause requires confirmation', async () => {
     const page = watch(await run.open(`${origin()}/popup/popup.html`));

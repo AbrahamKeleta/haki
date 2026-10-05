@@ -8,7 +8,7 @@ Build the supplied V1 specification as a dependency-free, local-only Manifest V3
 2. Protection: optional host permissions, persistent document-start registration, isolated accessible gate, confirmation and emergency access.
 3. Product: onboarding, rule editor, platform management, frequency settings and popup.
 4. Release: browser integration tests, icons, privacy policy, store copy and uploadable ZIP.
-5. Added scope: optional new-tab ritual with inline rule editing. The new-tab feature is off by default. Ad cards, links, controls and runtime support were removed for the initial store submission; their implementation remains in Git history for a future release.
+5. Added scope: optional new-tab ritual, now matching the protected-site gate's design and interactions. Rules are edited in Settings. The new-tab feature is off by default. Ad cards, links, controls and runtime support were removed for the initial store submission; their implementation remains in Git history for a future release.
 6. Added scope: static hakitrade.com landing page, actual extension ZIP download, clear manual-install instructions and a public privacy page. No payment integration or deployment.
 
 ## Decisions

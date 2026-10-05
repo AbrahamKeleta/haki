@@ -74,7 +74,7 @@ try {
 
   const newtab = await run.open(`${origin}/newtab/newtab.html`);
   await frame(newtab);
-  await until(() => newtab.evaluate('document.querySelectorAll(".reminder").length === 4 && !document.querySelector("#app").hidden'));
+  await until(() => newtab.evaluate('document.querySelector("#app")?.shadowRoot?.querySelectorAll(".rule").length === 4 && !document.querySelector("#app").hidden'));
   assert.equal(await newtab.evaluate('document.querySelector("#ads-toggle, .example-ad") === null'), true);
   await capture(newtab, '02-new-tab-1280x800');
 

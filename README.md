@@ -24,7 +24,7 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 - Every new/reloaded trading page, every 1/2/3/4/6/8/12 hours, or once per local calendar day.
 - Compact popup with protection status, rule/platform counts, management links, **Show Haki Now**, pause confirmation and five-second emergency access.
 - Settings, corrupt-data recovery, local backup before repair/reset and optional-permission cleanup on custom-site removal.
-- Optional new-tab ritual with your rules, inline editing and a local reflection checklist. It never suppresses the trading gate.
+- Optional new-tab ritual with the same design, checklist, progress bar and success animation as the protected-site gate. It never suppresses the trading gate.
 - The initial store release contains no advertisements, sponsor links or ad-preview controls.
 
 ## Behavior to know
@@ -42,7 +42,9 @@ The `hakitrade.com` landing page is in [website/index.html](website/index.html).
 
 ## Optional new tab
 
-To inspect the new-tab design without an extension installation, run `npm run preview:newtab` and open `dist/newtab-preview.html` in your browser. It generates a standalone HTML/CSS preview from the actual new-tab files, with example rules. Editing rules is available in the installed extension.
+To inspect the new-tab design without an extension installation, run `npm run preview:newtab` and open `dist/newtab-preview.html` in your browser. It generates a standalone interactive preview from the actual new-tab files, with example rules. Edit your rules in Haki Settings.
+
+Check every rule to unlock **READY TO TRADE**. The new tab shows the same confirmation animation as the protected-site gate, then opens Chrome's built-in New Tab page. This confirmation is local to that new tab and never changes protected-site reminders.
 
 After local source changes, reload Haki at `chrome://extensions` and open a fresh new tab. If you installed from an extracted ZIP, Chrome continues using that extracted folder; replace it with the updated ZIP contents, or use **Load unpacked** on this repository folder.
 
